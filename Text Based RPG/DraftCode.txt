@@ -1,0 +1,84 @@
+﻿Game manager
+        //private PickUps smPotion = new PickUps();
+        //private PickUps lgPotion = new PickUps();
+        //private PickUps trap = new PickUps();
+
+		 ////------------------------------------- Small Potion random position on start
+            //smPotion.X = GenerateRandomGameplayCanvasCoordinates(true, smPotion);
+            //smPotion.Y = GenerateRandomGameplayCanvasCoordinates(false, smPotion);
+            //smPotion.PhysicalForm = new string[]
+            //{
+            //    "┌┐",
+            //    "└┘"
+            //};
+            //smPotion.Name = "Small Health Potion";
+            //smPotion.Width = smPotion.PhysicalForm.Length;
+            //smPotion.Height = smPotion.GetLength();
+
+            ////------------------------------------- Big Potion random position on start
+            //lgPotion.X = GenerateRandomGameplayCanvasCoordinates(true, smPotion);
+            //lgPotion.Y = GenerateRandomGameplayCanvasCoordinates(false, smPotion);
+            //lgPotion.Health = 10;
+            //lgPotion.Name = "Large Health Potion";
+            //lgPotion.Width = lgPotion.PhysicalForm.Length;
+            //lgPotion.Height = lgPotion.GetLength();
+
+            ////------------------------------------- Big Potion random position on start
+            //trap.X = GenerateRandomGameplayCanvasCoordinates(true, trap);
+            //trap.Y = GenerateRandomGameplayCanvasCoordinates(false, trap);
+            //trap.PhysicalForm = new string[]
+            //{
+            //    "▓▓"
+            //};
+            //trap.Health = -20;
+            //trap.Name = "Trap";
+            //trap.Color = ConsoleColor.Magenta;
+            //trap.Width = trap.PhysicalForm.Length;
+            //trap.Height = trap.GetLength();
+
+			            //------------------------------------------------ Health potions
+            //displayManager.DrawObjectAt(smPotion.X, smPotion.Y, smPotion.PhysicalForm, smPotion.Color);
+            //displayManager.DrawObjectAt(lgPotion.X, lgPotion.Y, lgPotion.PhysicalForm, lgPotion.Color);
+
+            //------------------------------------------------ Trap
+            //displayManager.DrawObjectAt(trap.X, trap.Y, trap.PhysicalForm, trap.Color);
+
+
+			//Collision check between player and small potion
+            //if (CollisionCheck(player, smPotion, false, gameplayCanvasLimitRight + 1, gameplayCanvasLimitUp + 6))
+            //{
+            //    //Increase player current health
+            //    displayManager.DrawHint(gameplayCanvasLimitLeft, gameplayCanvasLimitDown, "Small HP picked up!");
+            //    player.CurrentHealth += smPotion.Health;
+
+            //    //Clear and move the health potion somewhere else
+            //    displayManager.DrawObjectAt(smPotion.X, smPotion.Y, smPotion.DeadForm, smPotion.Color);
+            //    smPotion.X = GenerateRandomGameplayCanvasCoordinates(true, smPotion);
+            //    smPotion.Y = GenerateRandomGameplayCanvasCoordinates(false, smPotion);
+            //}
+
+            //Collision check between player and large potion
+            //if (CollisionCheck(player, lgPotion, false, gameplayCanvasLimitRight + 1, gameplayCanvasLimitUp + 12))
+            //{
+            //    //Increase player current health
+            //    displayManager.DrawHint(gameplayCanvasLimitLeft, gameplayCanvasLimitDown, "Large HP picked up!");
+            //    player.CurrentHealth += lgPotion.Health;
+
+            //    //Clear and move the health potion somewhere else
+            //    displayManager.DrawObjectAt(lgPotion.X, lgPotion.Y, lgPotion.DeadForm, lgPotion.Color);
+            //    lgPotion.X = GenerateRandomGameplayCanvasCoordinates(true, lgPotion);
+            //    lgPotion.Y = GenerateRandomGameplayCanvasCoordinates(false, lgPotion);
+            //}
+
+            //Collision check between player and trap
+            //if (CollisionCheck(player, trap, false, gameplayCanvasLimitRight + 1, gameplayCanvasLimitUp + 18))
+            //{
+            //    //Decrease player current health
+            //    displayManager.DrawHint(gameplayCanvasLimitLeft, gameplayCanvasLimitDown, "Trap sprung!");
+            //    player.CurrentHealth += trap.Health;
+
+            //    //Clear and move the health potion somewhere else
+            //    displayManager.DrawObjectAt(trap.X, lgPotion.Y, trap.DeadForm, trap.Color);
+            //    trap.X = GenerateRandomGameplayCanvasCoordinates(true, trap);
+            //    trap.Y = GenerateRandomGameplayCanvasCoordinates(false, trap);
+            //}

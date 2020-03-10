@@ -1,0 +1,28 @@
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe.config
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.pdb
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csprojAssemblyReference.cache
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csproj.CoreCompileInputs.cache
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.exe
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.pdb
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe.config
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.pdb
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csprojAssemblyReference.cache
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.exe
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.pdb
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe.config
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.pdb
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csprojAssemblyReference.cache
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csproj.CoreCompileInputs.cache
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.exe
+C:\Users\w0433340\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.pdb
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe.config
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.exe
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Text Based RPG.pdb
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csprojAssemblyReference.cache
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.exe
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.pdb
