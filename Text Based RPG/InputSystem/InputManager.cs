@@ -12,6 +12,7 @@ namespace Text_Based_RPG
         private int[] direction = { 1, 2, 3, 4 };
         private int inputDirection;
         public int x, y;
+        public bool keyPressed;
 
         private bool validInput;
         private ConsoleKey[] knownCMD =
@@ -30,11 +31,14 @@ namespace Text_Based_RPG
         public InputManager()
         {
             validInput = false;
+            keyPressed = false;
         }
 
         //Locomotion Input listener and direction returner
         public int InputListener()
         {
+            keyPressed = false;
+
             while (!validInput)
             {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -51,6 +55,8 @@ namespace Text_Based_RPG
                     Console.SetCursorPosition(x, y + 1);
                     Console.Write("Invalid input!");
                 }
+
+                keyPressed = true;
             }
 
             switch (key.Key)

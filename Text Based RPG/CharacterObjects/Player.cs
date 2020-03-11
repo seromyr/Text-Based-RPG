@@ -8,9 +8,6 @@ namespace Text_Based_RPG
 {
     class Player : CharacterObject
     {
-        //Player visual boundary variables
-        //public int[] boundaryTopX, boundaryTopY, boundaryBotX, boundaryBotY, boundaryLeftX, boundaryLeftY, boundaryRightX, boundaryRightY;
-
         public Player()
         {
             Health = 100;

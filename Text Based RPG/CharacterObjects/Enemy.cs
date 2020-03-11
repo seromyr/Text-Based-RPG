@@ -11,9 +11,6 @@ namespace Text_Based_RPG
     {
         private IMoveBehavior moveBehavior;
 
-        //Enemy visual boundary variables
-        //public int[] boundaryTopX, boundaryTopY, boundaryBotX, boundaryBotY, boundaryLeftX, boundaryLeftY, boundaryRightX, boundaryRightY;
-
         public Enemy(IMoveBehavior mB)
         {
             moveBehavior = mB;
@@ -75,36 +72,89 @@ namespace Text_Based_RPG
 
         public void MoveTowards(Player player)
         {
-            //Measuring distance between player and enemy
-            int horizontalDistance = X - player.X;
-
+            Random random = new Random();
+            int step = random.Next(0, 3);
             PreviousX = X;
             PreviousY = Y;
 
-            //In case enemy is on player's right side
-            if (X > player.X + player.Width)
+            bool stuck = false;
+
+            int HDistance = Math.Abs(X - player.X);
+            int VDistance = Math.Abs(Y - player.Y);
+
+            //Each turn, enemy decides which direction he should goes
+            //and if there are multiple possible directions at the same time,
+            //he will choose the longest distance direction
+            //if the path is block, he will switch direction
+
+            //int shortestPath = 0;
+            //if (HDistance > VDistance) shortestPath = VDistance;
+            //else if (HDistance < VDistance) shortestPath = HDistance;
+
+            //Go vertically
+            if (HDistance < VDistance)
             {
-                X -= Speed;
+                //Go up when there is no obstacle at the top
+                if (BlockedVertically != BlockedDirection.Up && Y > player.Y + player.Height)
+                {
+                    GoUp();
+                }
+
+                //Go down when there is no obstable at the bottom
+                if (BlockedVertically != BlockedDirection.Down && Y + Height < player.Y)
+                {
+                    GoDown();
+                }
+
+                //Switch direction if got stuck
+                if (BlockedVertically == BlockedDirection.Up | BlockedVertically == BlockedDirection.Down)
+                {
+                    //Go left when there is no obstable the left
+                    if (BlockedHorizontally != BlockedDirection.Left && X > player.X + player.Width)
+                    {
+                        GoLeft();
+                    }
+
+                    //Go right when there is no obstable the left
+                    if (BlockedHorizontally != BlockedDirection.Right && X + Width < player.X)
+                    {
+                        GoRight();
+                    }
+                }
             }
 
-            //In case enemy is on player's left side
-            else if (X + Width < player.X)
+            //Go horizontally
+            else if (HDistance > VDistance)
             {
-                X += Speed;
+                //Go left when there is no obstable the left
+                if (BlockedHorizontally != BlockedDirection.Left && X > player.X + player.Width)
+                {
+                    GoLeft();
+                }
+
+                //Go right when there is no obstable the left
+                if (BlockedHorizontally != BlockedDirection.Right && X + Width < player.X)
+                {
+                    GoRight();
+                }
+
+                if (BlockedHorizontally == BlockedDirection.Left || BlockedHorizontally == BlockedDirection.Right)
+                {
+                    //Go up when there is no obstacle at the top
+                    if (BlockedVertically != BlockedDirection.Up && Y > player.Y + player.Height)
+                    {
+                        GoUp();
+                    }
+
+                    //Go down when there is no obstable at the bottom
+                    if (BlockedVertically != BlockedDirection.Down && Y + Height < player.Y)
+                    {
+                        GoDown();
+                    }
+                }
             }
 
-            //In case enemy is above player
-            if (Y + Height < player.Y)
-            {
-                Y += Speed;
-            }
-
-            //In case enemy is below player
-            else if (Y > player.Y + player.Height)
-            {
-                Y -= Speed;
-            }
-
+            //WILL UPDATE THIS
             //moveBehavior.Move(player); ???
 
             //if (X           == player.X + player.Width  ||
@@ -114,6 +164,34 @@ namespace Text_Based_RPG
             //{
             //    AttackPermission = true;
             //}
+        }
+
+        private void GoLeft()
+        {
+            X -= Speed;
+            BlockedHorizontally = BlockedDirection.None;
+            BlockedVertically = BlockedDirection.None;
+        }
+
+        private void GoRight()
+        {
+            X += Speed;
+            BlockedHorizontally = BlockedDirection.None;
+            BlockedVertically = BlockedDirection.None;
+        }
+
+        private void GoUp()
+        {
+            Y -= Speed;
+            BlockedHorizontally = BlockedDirection.None;
+            BlockedVertically = BlockedDirection.None;
+        }
+
+        private void GoDown()
+        {
+            Y += Speed;
+            BlockedHorizontally = BlockedDirection.None;
+            BlockedVertically = BlockedDirection.None;
         }
 
         //For collision checking with everything on the map
@@ -126,7 +204,7 @@ namespace Text_Based_RPG
                 BoundaryTopY[i] = Y - 1;
 
                 //Draw boundary
-                //Console.SetCursorPosition(boundaryTopX[i], boundaryTopY[i]);
+                //Console.SetCursorPosition(BoundaryTopX[i], BoundaryTopY[i]);
                 //Console.Write(".");
             }
 
@@ -137,7 +215,7 @@ namespace Text_Based_RPG
                 BoundaryBotY[i] = Y + Height;
 
                 //Draw boundary
-                //Console.SetCursorPosition(boundaryBotX[i], boundaryBotY[i]);
+                //Console.SetCursorPosition(BoundaryBotX[i], BoundaryBotY[i]);
                 //Console.Write(".");
             }
 
@@ -148,7 +226,7 @@ namespace Text_Based_RPG
                 BoundaryLeftY[i] = Y + i - 1;
 
                 //Draw boundary
-                //Console.SetCursorPosition(boundaryLeftX[i], boundaryLeftY[i]);
+                //Console.SetCursorPosition(BoundaryLeftX[i], BoundaryLeftY[i]);
                 //Console.Write(".");
             }
 
@@ -159,7 +237,7 @@ namespace Text_Based_RPG
                 BoundaryRightY[i] = Y + i - 1;
 
                 //Draw boundary
-                //Console.SetCursorPosition(boundaryRightX[i], boundaryRightY[i]);
+                //Console.SetCursorPosition(BoundaryRightX[i], BoundaryRightY[i]);
                 //Console.Write(".");
             }
         }

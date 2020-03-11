@@ -128,12 +128,18 @@ namespace Text_Based_RPG
             //Perform collision check between player and every enemy on the screen
             for (int i = 0; i < enemyList.Count; i++)
             {
-                enemyList[i].MoveTowards(player);
                 displayManager.DrawObjectAt(enemyList[i].PreviousX , enemyList[i].PreviousY , enemyList[i].NegativeForm , enemyList[i].Color);
                 displayManager.DrawObjectAt(enemyList[i].X         , enemyList[i].Y         , enemyList[i].PhysicalForm , enemyList[i].Color);
                 enemyList[i].GetCurrentBoundaryCoordinates();
-                CollisionCheckOutsideBounds(enemyList[i]);
+
                 CollisionCheckInsideBounds(map, enemyList[i]);
+                if (inputManager.keyPressed)
+                {
+                    enemyList[i].MoveTowards(player);
+                }
+                
+                //Enemy attack player when collides
+                CollisionCheckOutsideBounds(enemyList[i]);
 
                 enemyList[i].ShowStatsHUD(50, 1);
 
@@ -173,9 +179,6 @@ namespace Text_Based_RPG
             //------------------------------------------------ Gameplay canvas
             Console.ForegroundColor = ConsoleColor.Yellow;
             displayManager.DrawRectangle(gameplayCanvasLimitLeft, gameplayCanvasLimitUp, gameplayCanvasLimitRight - gameplayCanvasLimitLeft, gameplayCanvasLimitDown - gameplayCanvasLimitUp);
-
-            //------------------------------------------------ Player
-            //displayManager.DrawObjectAt(player.X, player.Y, player.PhysicalForm, player.Color);
 
             //------------------------------------------------ Health Potion
             displayManager.DrawObjectAt(potion.X, potion.Y, potion.PhysicalForm, potion.Color);
@@ -488,7 +491,7 @@ namespace Text_Based_RPG
 
             observingObject.AttackPermission = false;
 
-            //Check for colision
+            //Check for collision
             for (int i = 0; i < allY.Count; i++)
             {
                 if (player.BoundaryTopX.Contains(allX[i]) && player.BoundaryTopY.Contains(allY[i]))
@@ -612,8 +615,8 @@ namespace Text_Based_RPG
             enemyList.Add(new Enemy(new MoveTowardsPlayer()));
 
             enemyList[EnemyCount].Name = "Enemy " + EnemyCount;
-            enemyList[EnemyCount].X = GenerateRandomGameplayCanvasCoordinates(true, enemyList[EnemyCount]);
-            enemyList[EnemyCount].Y = GenerateRandomGameplayCanvasCoordinates(false, enemyList[EnemyCount]);
+            enemyList[EnemyCount].X = gameplayCanvasLimitRight - 10;//GenerateRandomGameplayCanvasCoordinates(true, enemyList[EnemyCount]);
+            enemyList[EnemyCount].Y = gameplayCanvasLimitUp + 3;//GenerateRandomGameplayCanvasCoordinates(false, enemyList[EnemyCount]);
             EnemyCount++;
         }
 
