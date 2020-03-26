@@ -13,6 +13,7 @@ namespace Text_Based_RPG
             Health = 100;
             Shield = 100;
             Damage = 5;
+            ShieldRegenerationAllowed = true;
 
             X = 1;
             Y = 1;
@@ -20,28 +21,9 @@ namespace Text_Based_RPG
             PreviousY = Y;
             Speed = 1;
 
-            PhysicalForm = new string[]
-            {
-                @"  Θ  ",
-                @"┌─┼─┐",
-                @" ┌┴┐ ",
-                @" │ │ ",
-            };
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Player.char");
 
-            NegativeForm = new string[]
-            {
-                ""+(char)32 + (char)32 + (char)32 + (char)32 + (char)32,
-                ""+(char)32 + (char)32 + (char)32 + (char)32 + (char)32,
-                ""+(char)32 + (char)32 + (char)32 + (char)32 + (char)32,
-                ""+(char)32 + (char)32 + (char)32 + (char)32 + (char)32
-            };
-
-            DeadForm = new string[]
-            {
-                ""+(char)32
-            };
-
-            Name = "Abyssal Champion";
+            Name = "Every Day Normal Guy";
             Color = ConsoleColor.Red;
 
             Height = PhysicalForm.Length;

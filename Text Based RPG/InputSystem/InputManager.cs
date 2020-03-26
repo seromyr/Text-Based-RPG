@@ -21,7 +21,7 @@ namespace Text_Based_RPG
                 ConsoleKey.W,       ConsoleKey.S,           ConsoleKey.A,           ConsoleKey.D,
                 ConsoleKey.UpArrow, ConsoleKey.DownArrow,   ConsoleKey.LeftArrow,   ConsoleKey.RightArrow,
 
-                //Interation
+                //Interaction
                 ConsoleKey.Spacebar
         };
 

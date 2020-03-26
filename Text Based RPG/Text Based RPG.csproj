@@ -49,6 +49,7 @@
     <Compile Include="CharacterObjects\Enemy.cs" />
     <Compile Include="CharacterObjects\Map.cs" />
     <Compile Include="DisplaySystem\DisplayManager.cs" />
+    <Compile Include="GameLogic.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="InputSystem\InputManager.cs" />
     <Compile Include="CharacterObjects\PickUps.cs" />
@@ -59,12 +60,43 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Visual Data\Characters\Enemy_02.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_01.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_00.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Potion_ExtaLarge.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Potion_Small.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Potion_Large.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Player.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_99.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_03.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_02.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_01.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DraftCode.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Map\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,43 +11,35 @@ namespace Text_Based_RPG
     {
         private IMoveBehavior moveBehavior;
 
-        public Enemy(IMoveBehavior mB)
+        public Enemy(IMoveBehavior mB, EnemyType type)
         {
-            moveBehavior = mB;
+            moveBehavior = mB;           
 
-            Health = 30;
-            CurrentHealth = 30;
-            Shield = 100;
-            CurrentShield = 0;
+            switch (type)
+            {
+                case EnemyType.Random_Robot:
+                    // This random code sucks, I will try to improve it next version //
+                    int     r = GameLogic.random.Next(0, 3);                         //
+                    if      (r == 0) CreateCommonRobot();                            //
+                    else if (r == 1) CreateEliteRobot();                             //
+                    else    CreateGiantRobot();                                      //
+                    //---------------------------------------------------------------//
+                    break;
+                case EnemyType.Common_Robot:
+                    CreateCommonRobot();
+                    break;
+                case EnemyType.Elite_Robot:
+                    CreateEliteRobot();
+                    break;
+                case EnemyType.Giant_Robot:
+                    CreateGiantRobot();
+                    break;
+            }
 
             X = 1;
             Y = 1;
             PreviousX = X;
             PreviousY = Y;
-            Speed = 1;
-            Damage = 3;
-
-            PhysicalForm = new string[]
-            {
-                @")/  ",
-                @"Y\_/",
-                @" /~\",
-            };
-
-            NegativeForm = new string[]
-            {
-                ""+(char)32 + (char)32 + (char)32 + (char)32,
-                ""+(char)32 + (char)32 + (char)32 + (char)32,
-                ""+(char)32 + (char)32 + (char)32 + (char)32
-            };
-
-            DeadForm = new string[]
-            {
-                ""+(char)32
-            };
-
-            Name = "Enemy";
-            Color = ConsoleColor.Cyan;
 
             Height = PhysicalForm.Length;
             Width = GetWidth();
@@ -70,14 +62,61 @@ namespace Text_Based_RPG
             GetCurrentBoundaryCoordinates();
         }
 
+        private void CreateCommonRobot()
+        {
+            //Combat data
+            Health = 30;
+            CurrentHealth = 30;
+            Shield = 0;
+            CurrentShield = 0;
+            ShieldRegenerationAllowed = false;
+            Damage = 10;
+            Speed = 1;
+
+            //Visual data
+            Name = "Robot ";
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_00.char");
+            Color = ConsoleColor.Cyan;
+        }
+
+        private void CreateEliteRobot()
+        {
+            //Combat data
+            Health = 50;
+            CurrentHealth = 50;
+            Shield = 10;
+            CurrentShield = 10;
+            ShieldRegenerationAllowed = false;
+            Damage = 15;
+            Speed = 2;
+
+            //Visual data
+            Name = "Elite Robot ";
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_01.char");
+            Color = ConsoleColor.DarkYellow;
+        }
+
+        private void CreateGiantRobot()
+        {
+            //Combat data
+            Health = 100;
+            CurrentHealth = 100;
+            Shield = 50;
+            CurrentShield = 50;
+            ShieldRegenerationAllowed = false;
+            Damage = 20;
+            Speed = 1;
+
+            //Visual data
+            Name = "Giant Robot ";
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_02.char");
+            Color = ConsoleColor.Red;
+        }
+
         public void MoveTowards(Player player)
         {
-            Random random = new Random();
-            int step = random.Next(0, 3);
             PreviousX = X;
             PreviousY = Y;
-
-            bool stuck = false;
 
             int HDistance = Math.Abs(X - player.X);
             int VDistance = Math.Abs(Y - player.Y);
@@ -86,10 +125,6 @@ namespace Text_Based_RPG
             //and if there are multiple possible directions at the same time,
             //he will choose the longest distance direction
             //if the path is block, he will switch direction
-
-            //int shortestPath = 0;
-            //if (HDistance > VDistance) shortestPath = VDistance;
-            //else if (HDistance < VDistance) shortestPath = HDistance;
 
             //Go vertically
             if (HDistance < VDistance)

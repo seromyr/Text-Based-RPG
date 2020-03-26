@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG
 {
-    enum HealhPotion { small, large }
     class PickUps : CharacterObject
     {
         public PickUps(HealhPotion potion)
         {
-            HealhPotion healhPotion = new HealhPotion();
-            healhPotion = potion;
             switch (potion)
             {
-                case HealhPotion.small: //Or 0, but it is for reading comprehension
+                case HealhPotion.Small: //Or 0, but it is for reading comprehension
                     CreateSmallPotion();
                     break;
-                case HealhPotion.large:
+                case HealhPotion.Large:
                     CreateLargePotion(); //Or 1, but it is for reading comprehension
                     break;
             }
@@ -32,17 +29,7 @@ namespace Text_Based_RPG
         {
             Health = 10;
 
-            PhysicalForm = new string[]
-            {
-                "┌┐",
-                "└┘"
-            };
-
-            NegativeForm = new string[]
-            {
-                @"" + (char)32 + (char)32,
-                @"" + (char)32 + (char)32
-            };
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Potion_Small.char");
 
             Name = "Small Health Potion";
         }
@@ -51,28 +38,9 @@ namespace Text_Based_RPG
         {
             Health = 20;
 
-            PhysicalForm = new string[]
-            {
-
-                "┌┼┐",
-                "│││",
-                "└─┘"
-            };
-
-            NegativeForm = new string[]
-            {
-                @"" + (char)32+ (char)32+ (char)32,
-                @"" + (char)32+ (char)32+ (char)32,
-                @"" + (char)32+ (char)32+ (char)32,
-            };
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Potion_Large.char");
 
             Name = "Large Health Potion";
         }
     }
 }
-
-/*
-    ".-.-.",
-    "'. .'",
-    "  `"
-*/

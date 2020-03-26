@@ -25,7 +25,7 @@ namespace Text_Based_RPG
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine(line);
                 y++;
-            }            
+            }
         }
 
         public void DrawMasterCanvas(int length, int height)
@@ -38,7 +38,7 @@ namespace Text_Based_RPG
             shapeFactory.DrawRectangle(x, y, length, height);
         }
 
-        public void DrawHint(int x, int y, string message)
+        public static void DrawHint(int x, int y, string message)
         {
             Console.SetCursorPosition(x, y);
             for (int i = 0; i < 60; i++)
@@ -142,9 +142,45 @@ namespace Text_Based_RPG
 
         public void DrawAnimatedTextBox()
         {
+            DrawAnimateTextboxIn();
+            DrawGameHint();
+            
+
 
         }
 
+        public void ShowStatsHUD(int x, int y, CharacterObject characterObject)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.WriteLine(" Name    {0}", characterObject.Name);
+            Console.SetCursorPosition(x, y + 1);
+            Console.WriteLine(" Health  [                    ] {0} ", characterObject.CurrentHealth);
 
+            Console.SetCursorPosition(x + 10, y + 1);
+            for (int i = 0; i < 20; i++) Console.Write("-");
+
+            //Avoid divided by zero
+            if (characterObject.Health != 0)
+            {
+                Console.SetCursorPosition(x + 10, y + 1);
+                for (int j = 0; j < (characterObject.CurrentHealth * 20 / characterObject.Health); j++) Console.Write("▓");
+            }
+
+            Console.SetCursorPosition(x, y + 2);
+            Console.WriteLine(" Shield  [                    ] {0} ", characterObject.CurrentShield);
+
+            Console.SetCursorPosition(x + 10, y + 2);
+            for (int i = 0; i < 20; i++) Console.Write("-");
+
+            //Avoid divided by zero
+            if (characterObject.Shield != 0)
+            {
+                Console.SetCursorPosition(x + 10, y + 2);
+                for (int j = 0; j < (characterObject.CurrentShield * 20 / characterObject.Shield); j++) Console.Write("░");
+            }
+
+            Console.SetCursorPosition(x, y + 3);
+            Console.WriteLine(" Damage  {0}", characterObject.Damage);
+        }
     }
 }

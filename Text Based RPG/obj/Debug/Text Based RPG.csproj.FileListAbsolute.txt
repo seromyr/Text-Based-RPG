@@ -26,3 +26,14 @@ C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction
 C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.csproj.CoreCompileInputs.cache
 C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.exe
 C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\obj\Debug\Text Based RPG.pdb
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Maps\Dungeon_03.map
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Maps\Dungeon_02.map
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Maps\Dungeon_01.map
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Player.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Potion_ExtaLarge.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Potion_Small.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Potion_Large.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Enemy_01.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Enemy_00.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Enemy_99.char
+C:\Users\ASUS\OneDrive - Nova Scotia Community College\_Semester 02\Introduction to OOP\Text Based RPG\Text Based RPG\bin\Debug\Visual Data\Characters\Enemy_02.char
