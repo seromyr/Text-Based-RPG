@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Text_Based_RPG
+namespace Text_Based_RPG.CharacterObjects
 {
     class Player : CharacterObject
     {
@@ -13,6 +13,8 @@ namespace Text_Based_RPG
             Health = 100;
             Shield = 100;
             Damage = 5;
+            Live = 3;
+            CurrentLive = Live;
             ShieldRegenerationAllowed = true;
 
             X = 1;
@@ -23,8 +25,8 @@ namespace Text_Based_RPG
 
             GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Player.char");
 
-            Name = "Every Day Normal Guy";
-            Color = ConsoleColor.Red;
+            Name = "[Every Day Normal Bot]";
+            Color = ConsoleColor.DarkYellow;
 
             Height = PhysicalForm.Length;
             Width = GetWidth();

@@ -10,19 +10,28 @@ namespace Text_Based_RPG
     {
         //Left - Right - Up - Down directions
         private int[] direction = { 1, 2, 3, 4 };
-        private int inputDirection;
-        public int x, y;
+        //private int currentSelection;
         public bool keyPressed;
 
         private bool validInput;
-        private ConsoleKey[] knownCMD =
+        private ConsoleKey[] knownGamelayCMD =
         {
                 //Locomotion
                 ConsoleKey.W,       ConsoleKey.S,           ConsoleKey.A,           ConsoleKey.D,
                 ConsoleKey.UpArrow, ConsoleKey.DownArrow,   ConsoleKey.LeftArrow,   ConsoleKey.RightArrow,
 
                 //Interaction
-                ConsoleKey.Spacebar
+                ConsoleKey.Spacebar, ConsoleKey.Enter, ConsoleKey.Escape
+        };
+
+        private ConsoleKey[] knownMenuCMD =
+        {
+                //Locomotion
+                ConsoleKey.W,       ConsoleKey.S,           
+                ConsoleKey.UpArrow, ConsoleKey.DownArrow,
+
+                //Interaction
+                ConsoleKey.Enter, ConsoleKey.Escape
         };
 
         private ConsoleKeyInfo key;
@@ -32,12 +41,14 @@ namespace Text_Based_RPG
         {
             validInput = false;
             keyPressed = false;
+            //currentSelection = 0;
         }
 
         //Locomotion Input listener and direction returner
-        public int InputListener()
+        public int InputListener_Movement(int x, int y)
         {
             keyPressed = false;
+            int inputDirection = 0;
 
             while (!validInput)
             {
@@ -47,7 +58,7 @@ namespace Text_Based_RPG
 
                 //Record input and compare to known database
                 key = Console.ReadKey(true);
-                validInput = knownCMD.Contains(key.Key);
+                validInput = knownGamelayCMD.Contains(key.Key);
 
                 //If input is not on the list then ask to input again
                 if (!validInput)
@@ -88,6 +99,48 @@ namespace Text_Based_RPG
             }
             validInput = false;
             return inputDirection;
+        }
+
+        public int InputListener_Menu(int currentSelection)
+        {
+            keyPressed = false;
+            
+            while (!validInput)
+            {
+                //Record input and compare to known database
+                key = Console.ReadKey(true);
+                validInput = knownMenuCMD.Contains(key.Key);
+
+                keyPressed = true;
+            }
+
+            switch (key.Key)
+            {
+                case ConsoleKey.W:
+                    currentSelection--;
+                    if (currentSelection < 0) currentSelection = 3;
+                    break;
+                case ConsoleKey.S:
+                    currentSelection++;
+                    if (currentSelection > 3) currentSelection = 0;
+                    break;
+                case ConsoleKey.UpArrow:
+                    currentSelection--;
+                    if (currentSelection < 0) currentSelection = 3;
+                    break;
+                case ConsoleKey.DownArrow:
+                    currentSelection++;
+                    if (currentSelection > 3) currentSelection = 0;
+                    break;
+                case ConsoleKey.Enter:
+                    currentSelection = -1;
+                    break;
+                case ConsoleKey.Escape:
+                    currentSelection = -2;
+                    break;
+            }
+            validInput = false;
+            return currentSelection;
         }
     }
 }

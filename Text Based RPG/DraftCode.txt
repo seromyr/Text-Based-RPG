@@ -82,3 +82,213 @@
             //    trap.X = GenerateRandomGameplayCanvasCoordinates(true, trap);
             //    trap.Y = GenerateRandomGameplayCanvasCoordinates(false, trap);
             //}
+
+
+                            ////------------------------------------------------ Player out of bound check
+                //if (player.X < gameplayCanvasLimitLeft + 1) player.X = gameplayCanvasLimitRight - player.Width - 1;
+                //else if (player.X > gameplayCanvasLimitRight - player.Width - 1) player.X = gameplayCanvasLimitLeft + 1;
+                //if (player.Y < gameplayCanvasLimitUp + 1) player.Y = gameplayCanvasLimitDown - player.Height - 1;
+                //else if (player.Y > gameplayCanvasLimitDown - player.Height - 1) player.Y = gameplayCanvasLimitUp + 1;
+                ////------------------------------------------------ End check
+
+
+
+
+
+
+
+
+
+
+
+                public void GetScenarioLevelOne()
+        {
+            // ON START
+            //Instantiate the map
+            Map currentMap = new Map("Dungeon_01")
+            {
+                X = Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 1,
+                Y = Constant.GAMEPLAY_CANVAS_LIMIT_UP + 1
+            };
+
+            //Gameplay canvas is drawn once to save the framerate
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            displayManager.DrawRectangle(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_UP, Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP);
+
+            //Map is drawn once to save the framerate
+            displayManager.DrawObjectAt(currentMap.X, currentMap.Y, currentMap.PhysicalForm, currentMap.Color);
+
+            //Instantiate Player attributes
+            player.CurrentHealth = 30;
+            player.CurrentShield = 1;
+            player.X = Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 6;
+            player.Y = Constant.GAMEPLAY_CANVAS_LIMIT_UP + (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP) / 2 - 2;
+
+            //Display level objective of this level
+            gameUI.DrawConfirmationBox(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + (Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT) / 2 - 26,
+                                       Constant.GAMEPLAY_CANVAS_LIMIT_UP + (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP) / 2 - 2,
+                                       52,
+                                       4,
+                                       "Kill Cyan Robot! He's broken and can't move.");
+
+
+            //Instantiate Enemy attributes
+            EnemyLimit = 1;
+
+            //Spawn some Potions on start
+            {
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 0, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 23, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 2);
+                displayManager.DrawObjectAt(potion[0].X, potion[0].Y, potion[0].PhysicalForm, potion[0].Color);
+
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 1, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 42, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 2);
+                displayManager.DrawObjectAt(potion[1].X, potion[1].Y, potion[1].PhysicalForm, potion[1].Color);
+
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 2, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 59, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 2);
+                displayManager.DrawObjectAt(potion[2].X, potion[2].Y, potion[2].PhysicalForm, potion[2].Color);
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 3, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 78, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 2);
+                displayManager.DrawObjectAt(potion[3].X, potion[3].Y, potion[3].PhysicalForm, potion[3].Color);
+
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 4, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 23, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 5);
+                displayManager.DrawObjectAt(potion[4].X, potion[4].Y, potion[4].PhysicalForm, potion[4].Color);
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 5, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 42, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 5);
+                displayManager.DrawObjectAt(potion[5].X, potion[5].Y, potion[5].PhysicalForm, potion[5].Color);
+
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 6, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 59, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 5);
+                displayManager.DrawObjectAt(potion[6].X, potion[6].Y, potion[6].PhysicalForm, potion[6].Color);
+                SpawnHealthPotionAtRunTime(Item.Health_Potion_Lg, 7, Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 78, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 5);
+                displayManager.DrawObjectAt(potion[7].X, potion[7].Y, potion[7].PhysicalForm, potion[7].Color);
+            }
+            
+            SpawnEnemyAtRuntime(Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - 10, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 9, EnemyType.Common_Robot, "Broken Robot");
+
+            // ON UPDATE
+            while (!gameOver || !gameWin)
+            {
+                //Draw Player at default position
+                displayManager.DrawObjectAt(player.X, player.Y, player.PhysicalForm, player.Color);
+
+                //Update player boundaries coordinates for the collision check
+                player.GetCurrentBoundaryCoordinates();
+
+                ////Spawn Enemy with limited instances
+                //while (EnemyCount < EnemyLimit)
+                //{
+                //    if (EnemyCount > EnemyLimit)
+                //    {
+                //        EnemyCount = EnemyLimit;
+                //    }
+                //}
+
+                //Perform collision check between player and alive enemy on the screen
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (!enemyList[i].IsDead)
+                    {
+                        //Update enemy visual position
+                        displayManager.DrawObjectAt(enemyList[i].PreviousX, enemyList[i].PreviousY, enemyList[i].NegativeForm, enemyList[i].Color);
+                        displayManager.DrawObjectAt(enemyList[i].X, enemyList[i].Y, enemyList[i].PhysicalForm, enemyList[i].Color);
+                        enemyList[i].GetCurrentBoundaryCoordinates();
+
+                        gameLogic.CollisionCheckInsideBounds(currentMap, enemyList[i]);
+                        if (inputManager.keyPressed)
+                        {
+                            //Enemy movement
+                            enemyList[i].MoveTowards(player);
+                        }
+
+                        //Enemy attack player when collides
+                        gameLogic.CollisionCheckOutsideBounds(enemyList[i], player);
+
+                        gameUI.ShowStatsHUD(50, 1, enemyList[i]);
+
+                        //Combat
+                        if (enemyList[i].AttackPermission)
+                        {
+                            player.TakeDamageFrom(enemyList[i], damageDistributionRatio);
+                            enemyList[i].TakeDamageFrom(player, damageDistributionRatio);
+
+                            
+                        }
+                    }
+                    else if (enemyList[i].IsDead)
+                    {
+                        displayManager.DrawObjectAt(enemyList[i].X, enemyList[i].Y, enemyList[i].NegativeForm, enemyList[i].Color);
+                        KillEnemyAtRunTime(enemyList[i]);
+
+                        gameUI.DrawConfirmationBox(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + (Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT) / 2 - 26,
+                               Constant.GAMEPLAY_CANVAS_LIMIT_UP + (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP) / 2 - 2,
+                               52,
+                               4,
+                               "Enemy has died");
+                        Console.Clear();
+
+                        //    //EnemyCount--;
+                        //    //Release controls lock
+                        //    gameWin = true;
+                        //    player.BlockedHorizontally = BlockedDirection.None;
+                        //    player.BlockedVertically = BlockedDirection.None;
+                    }
+
+                }
+
+                //Map had been drawn when the gameplay started
+                gameLogic.CollisionCheckInsideBounds(currentMap, player);
+
+                gameLogic.CollisionCheckBetweenPlayerAndCanvasBoundaries(player);
+                //Draw gameplay screens
+                //------------------------------------------------ HUD
+                Console.ForegroundColor = ConsoleColor.White;
+
+                gameUI.ShowStatsHUD(1, 1, player);
+                if (enemyList.Count == 0)
+                {
+                    gameUI.ShowStatsHUD(50, 1, enemy_null);
+                }
+                
+                ////------------------------------------------------ Health Potion
+                //displayManager.DrawObjectAt(potion.X, potion.Y, potion.PhysicalForm, potion.Color);
+
+                //Collision check between player and potion
+                for (int i = 0; i < potions.Count; i++)
+                {
+                    if (gameLogic.CollisionCheckTwoObjects(player, potion[i], false, Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT + 1, Constant.GAMEPLAY_CANVAS_LIMIT_UP + 6))
+                    {
+                        //Increase player current health
+                        DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{potion[i].Name} picked up!");
+                        player.CurrentHealth += potion[i].Health;
+
+                        //Clear and move the health potion outside the gameplay canvas
+                        displayManager.DrawObjectAt(potion[i].X, potion[i].Y, potion[i].NegativeForm, potion[i].Color);
+                        potion[i].X = 0;
+                        potion[i].Y = 0;
+                        //potion.X = gameLogic.GenerateRandomGameplayCanvasCoordinates(true, potion);
+                        //potion.Y = gameLogic.GenerateRandomGameplayCanvasCoordinates(false, potion);
+                    }
+                }
+                
+
+                //Run player controller
+                PlayerController();
+
+                //Removed to avoid screen flickering
+                //Console.Clear();
+
+                if (player.CurrentLive < 0) gameOver = true;
+
+                player.UpdateGameplayStatus(3);
+
+                Tick++;
+                //Console.SetCursorPosition(0, 0);
+                //Console.WriteLine(Tick);
+            }
+
+            if (gameWin)
+            {
+                //Display level objective of this level
+                gameUI.DrawConfirmationBox(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + (Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT) / 2 - 26,
+                                           Constant.GAMEPLAY_CANVAS_LIMIT_UP + (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP) / 2 - 2,
+                                           52,
+                                           4,
+                                           "Kill Cyan Robot! He's broken and can't move.");
+            }
+        }

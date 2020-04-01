@@ -6,42 +6,43 @@ using System.Threading.Tasks;
 using System.IO;
 
 //CHARACTER OBJECT SUPER CLASS
-namespace Text_Based_RPG
+namespace Text_Based_RPG.CharacterObjects
 {
     class CharacterObject
     {
         //DECLARATION AND ENCAPSULATION OF:
         //--------------------------------- Generic Battle Attributes
-        private int damage, health, shield, currentHealth, currentShield, live, currentLive;
-        public  int   Damage                         { get { return damage;              } set { damage              = value; } }
-        public  int   Health                         { get { return health;              } set { health              = value; } }
-        public  int   CurrentHealth                  { get { return currentHealth;       } set { currentHealth       = value; } }
-        public  int   Shield                         { get { return shield;              } set { shield              = value; } }
-        public  int   CurrentShield                  { get { return currentShield;       } set { currentShield       = value; } }
-        public  int   Live                           { get { return live;                } set { live                = value; } }
-        public  int   CurrentLive                    { get { return currentLive;         } set { currentLive         = value; } }
+        private int _damage, _health, _shield, _currentHealth, _currentShield, _live, _currentLive;
+        public  int   Damage                         { get { return _damage;              } set { _damage            = value; } }
+        public  int   Health                         { get { return _health;              } set { _health            = value; } }
+        public  int   CurrentHealth                  { get { return _currentHealth;       } set { _currentHealth     = value; } }
+        public  int   Shield                         { get { return _shield;              } set { _shield            = value; } }
+        public  int   CurrentShield                  { get { return _currentShield;       } set { _currentShield     = value; } }
+        public  int   Live                           { get { return _live;                } set { _live              = value; } }
+        public  int   CurrentLive                    { get { return _currentLive;          } set { _currentLive        = value; } }
         public  float ShieldRegenerationRate         { get;                                                                     }
-        public  bool  ShieldRegenerationAllowed      { get;                                set;                                 }
+        public  bool  ShieldRegenerationAllowed      { get;                                 set;                                }
+        public  bool  IsDead                        { get;                                 set;                                }
 
         private int timeStampX, timeStampY;
-        public  int TimeStampX                       { get { return timeStampX;          } set { timeStampX          = value; } }
-        public  int TimeStampY                       { get { return timeStampY;          } set { timeStampY          = value; } }        
+        public  int TimeStampX                       { get { return timeStampX;           } set { timeStampX         = value; } }
+        public  int TimeStampY                       { get { return timeStampY;           } set { timeStampY         = value; } }        
 
         //--------------------------------- Visual variables
         private int _x, _y, _previousX, _previousY, _speed, _height, _width;
-        public  int X                                { get { return _x;                   } set { _x                   = value; } }
-        public  int PreviousX                        { get { return _previousX;           } set { _previousX           = value; } }
-        public  int Y                                { get { return _y;                   } set { _y                   = value; } }
-        public  int PreviousY                        { get { return _previousY;           } set { _previousY           = value; } }
-        public  int Speed                            { get { return _speed;               } set { _speed               = value; } }
-        public  int Width                            { get { return _width;               } set { _width               = value; } }
-        public  int Height                           { get { return _height;              } set { _height              = value; } }
+        public  int X                                { get { return _x;                   } set { _x                 = value; } }
+        public  int PreviousX                        { get { return _previousX;           } set { _previousX         = value; } }
+        public  int Y                                { get { return _y;                   } set { _y                 = value; } }
+        public  int PreviousY                        { get { return _previousY;           } set { _previousY         = value; } }
+        public  int Speed                            { get { return _speed;               } set { _speed             = value; } }
+        public  int Width                            { get { return _width;               } set { _width             = value; } }
+        public  int Height                           { get { return _height;              } set { _height            = value; } }
 
         private string _name;
-        public  string Name                          { get { return _name;                } set { _name                = value; } }
+        public  string Name                          { get { return _name;                } set { _name              = value; } }
 
         private ConsoleColor _color;
-        public  ConsoleColor Color                   { get { return _color;               } set { _color               = value; } }
+        public  ConsoleColor Color                   { get { return _color;               } set { _color             = value; } }
 
         private string[] _physicalForm, _deadForm, _negativeForm;
         public  string[] PhysicalForm                { get { return _physicalForm;        } }
@@ -65,9 +66,12 @@ namespace Text_Based_RPG
         public  BlockedDirection BlockedVertically   { get { return blockedVertically;   } set { blockedVertically   = value; } }
 
         //--------------------------------- Combat variables
-        private bool attackPermission;
-        public  bool AttackPermission                { get { return attackPermission;    } set { attackPermission    = value; } }
+        private bool _attackPermission;
+        public  bool AttackPermission                { get { return _attackPermission;    } set { _attackPermission  = value; } }
         //------------------------------------------------------------------------------------------------------
+        
+        //Totally private variable
+        private int _characterSteps;
 
         //Constructor
         public CharacterObject()
@@ -75,14 +79,15 @@ namespace Text_Based_RPG
             //Hmm, instantiate everything with dummy data so that there will not be any null reference
             
             //Game progress attributes
-            damage = 1;
-            health = 1;
-            shield = 1;
-            currentHealth = health;
-            currentShield = shield;
-            attackPermission = false;
+            _damage = 1;
+            _health = 1;
+            _shield = 1;
+            _currentHealth = _health;
+            _currentShield = _shield;
+            _attackPermission = false;
             ShieldRegenerationRate = 0.01f;
             ShieldRegenerationAllowed = false;
+            _live = 0;
 
             //Visual attributes
             _name = "-null-";
@@ -101,6 +106,8 @@ namespace Text_Based_RPG
 
             BlockedHorizontally = BlockedDirection.None;
             BlockedVertically   = BlockedDirection.None;
+
+            _characterSteps = GameManager.Tick;
         }
 
         //Load visual from file
@@ -145,25 +152,40 @@ namespace Text_Based_RPG
             return longesth;
         }
 
-        public void UpdateGameplayStatus()
+        public void UpdateGameplayStatus(int steps)
         {
-            //Well, only CurrentShield regenerates if it was allowed too
-            if (ShieldRegenerationAllowed)
+            //Well, only CurrentShield regenerates if it was allowed to
+            //And regenerates shield every number of steps (or Ticks)
+            if (GameManager.Tick == _characterSteps + steps)
             {
-                if (CurrentShield > 0)
+                _characterSteps = GameManager.Tick;
+                if (ShieldRegenerationAllowed)
                 {
-                    //if ( timeStampX)
-                    CurrentShield += (int)Math.Round(ShieldRegenerationRate * Shield);
+                    if (_currentShield > 0)
+                    {
+                        //if ( timeStampX)
+                        _currentShield += (int)Math.Round(ShieldRegenerationRate * _shield);
+                        if (_currentShield > 100)
+                        {
+                            _currentShield = 100;
+                        }
+                    }
                 }
             }
+
+            if (_currentHealth > _health)
+            {
+                _currentHealth = _health;
+            }
+            //show log
+            //Console.SetCursorPosition(5, 0);
+            //Console.Write(_characterSteps);
         }
 
         public void TakeDamageFrom(CharacterObject characterObject, float damageDistributionRatio)
         {
-            //CurrentHealth -= characterObject.Damage;
-
-            //Shield regenerates every move
-            //Damage go straight to shield first
+            //Shield regenerates after a few moves
+            //Damage applies to shield first
             if (CurrentShield > 0)
             {
                 if (ShieldRegenerationAllowed)
@@ -217,33 +239,51 @@ namespace Text_Based_RPG
                 //if (showLog) GameManager.ShowLog(text06);
                 //if (showLog) GameManager.ShowLog(text07);
 
-                CurrentShield += (int)(ShieldRegenerationRate * shield);
+                CurrentShield += (int)(ShieldRegenerationRate * _shield);
                 ShieldRegenerationAllowed = true;
             }
 
-            if (currentHealth <= 0)
+            if (_currentHealth <= 0)
             {
-                CurrentHealth = Health;
-                CurrentShield = Shield;
-                CurrentLive--;
+                _currentLive--;
 
-                if (currentLive > 0)
+                if (_currentLive > 0)
                 {
                     //string text08 = "- Fatal hit! Player lost 01 live. Reviving...";
                     //if (showLog) GameManager.ShowLog(text08);
+                    CurrentHealth = Health;
+                    CurrentShield = Shield;
                 }
                 else
                 {
                     //string text09 = "- Fatal hit. Your player died and unable to revive this time.";
                     //if (showLog) GameManager.ShowLog(text09);
-                    //gameOver = true;
+                    IsDead = true;
                 }
             }
         }
 
-        public void HealedBy(CharacterObject characterObject)
+        public void GetHealthFrom(Items potion)
         {
-            CurrentHealth += characterObject.Health;
+            _currentHealth += potion._health;
+            if (_currentHealth > _health)
+            {
+                _currentHealth = _health;
+            }
+        }
+
+        public void GetShieldFrom(Items elixir)
+        {
+            _currentShield += elixir._shield;
+            if (_currentShield > _shield)
+            {
+                _currentShield = _shield;
+            }
+        }
+
+        public void GetDamageFrom(Items elixir)
+        {
+            _damage += elixir._damage;
         }
     }
 }

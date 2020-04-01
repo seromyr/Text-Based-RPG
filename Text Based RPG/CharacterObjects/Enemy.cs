@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Text_Based_RPG.Behaviors;
 
-namespace Text_Based_RPG
+namespace Text_Based_RPG.CharacterObjects
 {
     class Enemy : CharacterObject
     {
@@ -72,6 +72,8 @@ namespace Text_Based_RPG
             ShieldRegenerationAllowed = false;
             Damage = 10;
             Speed = 1;
+            Live = 0;
+            CurrentLive = Live;
 
             //Visual data
             Name = "Robot ";
@@ -89,11 +91,13 @@ namespace Text_Based_RPG
             ShieldRegenerationAllowed = false;
             Damage = 15;
             Speed = 2;
+            Live = 0;
+            CurrentLive = Live;
 
             //Visual data
             Name = "Elite Robot ";
             GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_01.char");
-            Color = ConsoleColor.DarkYellow;
+            Color = ConsoleColor.DarkBlue;
         }
 
         private void CreateGiantRobot()
@@ -106,10 +110,12 @@ namespace Text_Based_RPG
             ShieldRegenerationAllowed = false;
             Damage = 20;
             Speed = 1;
+            Live = 0;
+            CurrentLive = Live;
 
             //Visual data
             Name = "Giant Robot ";
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_02.char");
+            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_04.char");
             Color = ConsoleColor.Red;
         }
 

@@ -49,10 +49,12 @@
     <Compile Include="CharacterObjects\Enemy.cs" />
     <Compile Include="CharacterObjects\Map.cs" />
     <Compile Include="DisplaySystem\DisplayManager.cs" />
+    <Compile Include="DisplaySystem\GameUI.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="InputSystem\InputManager.cs" />
-    <Compile Include="CharacterObjects\PickUps.cs" />
+    <Compile Include="CharacterObjects\Items.cs" />
     <Compile Include="CharacterObjects\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Visual Data\Characters\Enemy_04.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_03.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Visual Data\Characters\Enemy_02.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -69,19 +77,34 @@
     <None Include="Visual Data\Characters\Enemy_00.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Potion_ExtaLarge.char">
+    <None Include="Visual Data\Characters\Health_Potion_ExtaLarge.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Potion_Small.char">
+    <None Include="Visual Data\Characters\Health_Potion_Small.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Potion_Large.char">
+    <None Include="Visual Data\Characters\Health_Potion_Large.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Characters\Player.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Characters\Enemy_99.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\DamageUp_Elixir_Large.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Shield_Potion_Large.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Shield_Potion_Small.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_05.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_04.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Maps\Dungeon_03.map">
@@ -93,9 +116,30 @@
     <None Include="Visual Data\Maps\Dungeon_01.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Visual Data\UI\continue.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\UI\credits.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\UI\exitgame.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\UI\newgame.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\UI\pressanykey.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\UI\gameover.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DraftCode.txt" />
+    <None Include="Visual Data\UI\mainmenuheader.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Text_Based_RPG.DisplaySystem;
+using Text_Based_RPG.CharacterObjects;
+
 
 namespace Text_Based_RPG
 {
-    // GAME CONSTANTS ------------------------------------------------------------- //
-    enum BlockedDirection { None, Left, Right, Up, Down }                           //
-    enum EnemyType        { Random_Robot, Common_Robot, Elite_Robot, Giant_Robot }  //
-    enum HealhPotion      { Small, Large }                                          //
-    enum GameCanvasLimit  { Left = 1, Right = Left + 117, Up = 6, Down = Up + 22 }  //
-    // ---------------------------------------------------------------------------- //
-
     class GameLogic
     {
         //Randomization instance
@@ -38,28 +34,28 @@ namespace Text_Based_RPG
             List<int> testRightY = new List<int>();
 
             //This is gameplay canvas top and bot border coordinates
-            for (int i = 0; i < (GameCanvasLimit.Right - GameCanvasLimit.Left); i++)
+            for (int i = 0; i < (Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT); i++)
             {
-                testTopX.Add((int)GameCanvasLimit.Left + i);
+                testTopX.Add(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + i);
                 testBotX.Add(testTopX[i]);
             }
 
-            for (int i = 0; i < (GameCanvasLimit.Right - GameCanvasLimit.Left); i++)
+            for (int i = 0; i < (Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT); i++)
             {
-                testTopY.Add((int)GameCanvasLimit.Up);
-                testBotY.Add((int)GameCanvasLimit.Down - 1);
+                testTopY.Add(Constant.GAMEPLAY_CANVAS_LIMIT_UP);
+                testBotY.Add(Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 1);
             }
 
             //This is gameplay canvas left and right border coordinates
-            for (int i = 0; i < (GameCanvasLimit.Down - GameCanvasLimit.Up); i++)
+            for (int i = 0; i < (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP); i++)
             {
-                testLeftX.Add((int)GameCanvasLimit.Left);
-                testRightX.Add((int)GameCanvasLimit.Right - 1);
+                testLeftX.Add(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT);
+                testRightX.Add(Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - 1);
             }
 
-            for (int i = 0; i < (GameCanvasLimit.Down - GameCanvasLimit.Up); i++)
+            for (int i = 0; i < (Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP); i++)
             {
-                testLeftY.Add((int)GameCanvasLimit.Up + i);
+                testLeftY.Add(Constant.GAMEPLAY_CANVAS_LIMIT_UP + i);
                 testRightY.Add(testLeftY[i]);
             }
 
@@ -160,7 +156,7 @@ namespace Text_Based_RPG
             if (showlog)
             {
                 //Player coordinates parsed log is fixed
-                ParseCoordinates((int)GameCanvasLimit.Right + 1, (int)GameCanvasLimit.Up, cO1, objAx, objAy);
+                ParseCoordinates(Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT + 1, Constant.GAMEPLAY_CANVAS_LIMIT_UP, cO1, objAx, objAy);
 
                 ParseCoordinates(x, y, cO2, objBx, objBy);
             }
@@ -228,7 +224,7 @@ namespace Text_Based_RPG
             {
                 if (observer.BoundaryTopX.Contains(allX[i]) && observer.BoundaryTopY.Contains(allY[i]) && charMapList[i] != " ")
                 {
-                   DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ observer.Name} encountered " + observingObject.Name + " at the top.");
+                   //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " at the top.");
                     observer.BlockedVertically = BlockedDirection.Up;
                 }
             }
@@ -237,7 +233,7 @@ namespace Text_Based_RPG
             {
                 if (observer.BoundaryBotX.Contains(allX[i]) && observer.BoundaryBotY.Contains(allY[i]) && charMapList[i] != " ")
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ observer.Name} encountered " + observingObject.Name + " below.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " below.");
                     observer.BlockedVertically = BlockedDirection.Down;
                 }
             }
@@ -246,7 +242,7 @@ namespace Text_Based_RPG
             {
                 if (observer.BoundaryLeftX.Contains(allX[i]) && observer.BoundaryLeftY.Contains(allY[i]) && charMapList[i] != " ")
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ observer.Name} encountered " + observingObject.Name + " on the left.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " on the left.");
                     observer.BlockedHorizontally = BlockedDirection.Left;
                     observingObject.AttackPermission = true;
                 }
@@ -256,7 +252,7 @@ namespace Text_Based_RPG
             {
                 if (observer.BoundaryRightX.Contains(allX[i]) && observer.BoundaryRightY.Contains(allY[i]) && charMapList[i] != " ")
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ observer.Name} encountered " + observingObject.Name + " on the right.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " on the right.");
                     observer.BlockedHorizontally = BlockedDirection.Right;
                     observingObject.AttackPermission = true;
                 }
@@ -297,7 +293,7 @@ namespace Text_Based_RPG
             {
                 if (player.BoundaryTopX.Contains(allX[i]) && player.BoundaryTopY.Contains(allY[i]))
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ player.Name} encountered " + observingObject.Name + " at the top.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " at the top.");
                     player.BlockedVertically = BlockedDirection.Up;
                     observingObject.AttackPermission = true;
                 }
@@ -307,7 +303,7 @@ namespace Text_Based_RPG
             {
                 if (player.BoundaryBotX.Contains(allX[i]) && player.BoundaryBotY.Contains(allY[i]))
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ player.Name} encountered " + observingObject.Name + " below.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " below.");
                     player.BlockedVertically = BlockedDirection.Down;
                     observingObject.AttackPermission = true;
                 }
@@ -317,7 +313,7 @@ namespace Text_Based_RPG
             {
                 if (player.BoundaryLeftX.Contains(allX[i]) && player.BoundaryLeftY.Contains(allY[i]))
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ player.Name} encountered " + observingObject.Name + " on the left.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " on the left.");
                     player.BlockedHorizontally = BlockedDirection.Left;
                     observingObject.AttackPermission = true;
                 }
@@ -327,11 +323,51 @@ namespace Text_Based_RPG
             {
                 if (player.BoundaryRightX.Contains(allX[i]) && player.BoundaryRightY.Contains(allY[i]))
                 {
-                    DisplayManager.DrawHint((int)GameCanvasLimit.Left, (int)GameCanvasLimit.Down, $"{ player.Name} encountered " + observingObject.Name + " on the right.");
+                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " on the right.");
                     player.BlockedHorizontally = BlockedDirection.Right;
                     observingObject.AttackPermission = true;
                 }
             }
         }
+
+        //Randomize X and Y within the Gameplay Canvas based on the object length and height
+        public int GenerateRandomGameplayCanvasCoordinates(bool xOrY, CharacterObject cO)
+        {
+            int generatedValue = 0;
+
+            switch (xOrY)
+            {
+                //Generate X inside  gameplay canvas
+                case true:
+                    generatedValue = random.Next(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT + 1, Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT);
+
+                    if (generatedValue > Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - cO.Width)
+                    {
+                        generatedValue = Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - cO.Width - 1;
+                    }
+                    break;
+
+                //Generate Y inside  gameplay canvas
+                case false:
+                    generatedValue = random.Next(Constant.GAMEPLAY_CANVAS_LIMIT_UP + 1, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - 1);
+
+                    if (generatedValue > Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - cO.Height)
+                    {
+                        generatedValue = Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - cO.Height - 1;
+                    }
+                    break;
+            }
+            return generatedValue;
+        }
+
+        public static int GenerateRandomBetween(int a, int b)
+        {
+            int generatedValue = 0;
+
+            generatedValue = random.Next(a, b);
+
+            return generatedValue;
+        }
+
     }
 }

@@ -12,9 +12,25 @@ namespace Text_Based_RPG
         {
             GameManager gameManager = new GameManager();
 
+            gameManager.GameStart();
+
+            //Game loop
             while (!gameManager.gameOver)
             {
-                gameManager.GamePlay();
+                switch (gameManager.gameState)
+                {
+                    case GameState.Main_Menu:
+                        gameManager.GameMainMenu();
+                        break;
+                    case GameState.Gameplay:
+                        gameManager.RunLevelOne();
+                        gameManager.RunLeveTwo();
+                        gameManager.RunLevelThree();
+                        gameManager.GameEnd();
+                        break;
+                    case GameState.Game_Over:
+                        break;
+                }
             }
 
             Console.WriteLine("Press any key to quit");

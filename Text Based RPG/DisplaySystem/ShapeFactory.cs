@@ -5,26 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Text_Based_RPG
+namespace Text_Based_RPG.DisplaySystem
 {
     class ShapeFactory
     {
-        private void DrawHorizontalLine(int x, int y, int length)
+        private void DrawHorizontalLine(int x, int y, int length, char character = '─')
         {
             Console.SetCursorPosition(x, y);
             for (int i = 0; i < length; i++)
             {
-                Console.Write("─");
+                Console.Write(character);
             }
         }
 
-        private void DrawVerticalLine(int x, int y, int height)
+        private void DrawVerticalLine(int x, int y, int height, char character = '│')
         {
             for (int i = 0; i < height; i++)
             {
-                Console.SetCursorPosition(x, y);
-                Console.Write("│");
-                y++;
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(character);
             }
         }
 
@@ -53,14 +52,20 @@ namespace Text_Based_RPG
             Console.WriteLine("┘");
 
             //Draw left & right vertical lines
-            for (int i = 2; i < height; i++)
-            {
-                Console.SetCursorPosition(x, y + 1);
-                Console.Write("│");
-                Console.SetCursorPosition(x + length - 1, y + 1);
-                Console.WriteLine("│");
-                y++;
-            }
+            DrawVerticalLine(x, y + 1, height - 2);
+            DrawVerticalLine(x + length - 1, y + 1, height - 2);
+        }
+        public void ClearRectangle(int x, int y, int length, int height)
+        {
+            //Draw top horizontal line
+            DrawHorizontalLine(x, y, length, ' ');
+
+            //Draw bottom horizontal line
+            DrawHorizontalLine(x, y + height - 1, length, ' ');
+
+            //Draw left & right vertical lines
+            DrawVerticalLine(x, y + 1, height - 1, ' ');
+            DrawVerticalLine(x + length - 1, y + 1, height - 1, ' ');
         }
     }
 }
