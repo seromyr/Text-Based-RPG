@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG.CharacterObjects
 {
-    class Items : CharacterObject
+    class Items : GameObject
     {
         public Items(Item item)
         {
@@ -28,7 +28,6 @@ namespace Text_Based_RPG.CharacterObjects
                     CreateLargeDamageElixir();
                     break;
             }
-
             
             Height = PhysicalForm.Length;
             Width = GetWidth();
@@ -38,9 +37,9 @@ namespace Text_Based_RPG.CharacterObjects
         {
             Color = ConsoleColor.Green;
 
-            Health = 10;
+            _health = 10;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Health_Potion_Small.char");
+            GetBattleForms(@".\Visual Data\Characters\Health_Potion_Small");
 
             Name = "Small Health Potion";
         }
@@ -49,9 +48,9 @@ namespace Text_Based_RPG.CharacterObjects
         {
             Color = ConsoleColor.Green;
 
-            Health = 20;
+            _health = 20;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Health_Potion_Large.char");
+            GetBattleForms(@".\Visual Data\Characters\Health_Potion_Large");
 
             Name = "Large Health Potion";
         }
@@ -59,9 +58,9 @@ namespace Text_Based_RPG.CharacterObjects
         private void CreateSmallShieldElixir()
         {
             Color = ConsoleColor.DarkCyan;
-            Shield = 10;
+            _shield = 10;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Shield_Potion_Small.char");
+            GetBattleForms(@".\Visual Data\Characters\Shield_Potion_Small");
 
             Name = "Small Shield Elixir";
         }
@@ -70,9 +69,9 @@ namespace Text_Based_RPG.CharacterObjects
         {
             Color = ConsoleColor.DarkCyan;
 
-            Shield = 20;
+            _shield = 20;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Shield_Potion_Large.char");
+            GetBattleForms(@".\Visual Data\Characters\Shield_Potion_Large");
 
             Name = "Large Shield Elixir";
         }
@@ -81,9 +80,9 @@ namespace Text_Based_RPG.CharacterObjects
         {
             Color = ConsoleColor.DarkRed;
 
-            Damage = 20;
+            _damage = 20;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\DamageUp_Elixir_Large.char");
+            GetBattleForms(@".\Visual Data\Characters\DamageUp_Elixir_Large");
 
             Name = "Large Damage Up Rune";
         }

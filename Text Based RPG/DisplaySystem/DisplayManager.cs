@@ -31,6 +31,14 @@ namespace Text_Based_RPG.DisplaySystem
             }
         }
 
+        public void DrawObjectAt(int x, int y, string drawObject, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+
+                Console.SetCursorPosition(x, y);
+                Console.Write(drawObject);
+        }
+
         //Draw a rectangle
         public void DrawRectangle(int x, int y, int length, int height)
         {

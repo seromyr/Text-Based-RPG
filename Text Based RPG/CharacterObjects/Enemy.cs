@@ -7,7 +7,7 @@ using Text_Based_RPG.Behaviors;
 
 namespace Text_Based_RPG.CharacterObjects
 {
-    class Enemy : CharacterObject
+    class Enemy : GameCharacter
     {
         private IMoveBehavior moveBehavior;
 
@@ -34,6 +34,9 @@ namespace Text_Based_RPG.CharacterObjects
                 case EnemyType.Giant_Robot:
                     CreateGiantRobot();
                     break;
+                case EnemyType.Boss:
+                    CreateBoss();
+                    break;
             }
 
             X = 1;
@@ -45,20 +48,19 @@ namespace Text_Based_RPG.CharacterObjects
             Width = GetWidth();
 
             //Instantiate boundary coordinates
-            //--------------------------------
-            BoundaryTopX = new int[Width];
-            BoundaryTopY = new int[Width];
-            //--------------------------------
-            BoundaryBotX = new int[Width];
-            BoundaryBotY = new int[Width];
-            //--------------------------------
-            BoundaryLeftX = new int[Width];
-            BoundaryLeftY = new int[Width];
-            //--------------------------------
+            //------------------------------//
+            BoundaryTopX   = new int[Width];
+            BoundaryTopY   = new int[Width];
+            //------------------------------//
+            BoundaryBotX   = new int[Width];
+            BoundaryBotY   = new int[Width];
+            //------------------------------//
+            BoundaryLeftX  = new int[Width];
+            BoundaryLeftY  = new int[Width];
+            //------------------------------//
             BoundaryRightX = new int[Width];
             BoundaryRightY = new int[Width];
-            //--------------------------------
-
+            //------------------------------//
             GetCurrentBoundaryCoordinates();
         }
 
@@ -77,7 +79,8 @@ namespace Text_Based_RPG.CharacterObjects
 
             //Visual data
             Name = "Robot ";
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_00.char");
+            GetBattleForms(@".\Visual Data\Characters\Enemy_00");
+            SetMapForms('∩');
             Color = ConsoleColor.Cyan;
         }
 
@@ -96,7 +99,8 @@ namespace Text_Based_RPG.CharacterObjects
 
             //Visual data
             Name = "Elite Robot ";
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_01.char");
+            GetBattleForms(@".\Visual Data\Characters\Enemy_01");
+            SetMapForms('Ü');
             Color = ConsoleColor.DarkBlue;
         }
 
@@ -115,7 +119,28 @@ namespace Text_Based_RPG.CharacterObjects
 
             //Visual data
             Name = "Giant Robot ";
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Enemy_04.char");
+            GetBattleForms(@".\Visual Data\Characters\Enemy_04");
+            SetMapForms('Ω');
+            Color = ConsoleColor.Red;
+        }
+
+        private void CreateBoss()
+        {
+            //Combat data
+            Health = 200;
+            CurrentHealth = 200;
+            Shield = 100;
+            CurrentShield = 100;
+            ShieldRegenerationAllowed = false;
+            Damage = 50;
+            Speed = 1;
+            Live = 0;
+            CurrentLive = Live;
+
+            //Visual data
+            Name = "BIG BOSS ";
+            GetBattleForms(@".\Visual Data\Characters\Enemy_03");
+            SetMapForms('Σ');
             Color = ConsoleColor.Red;
         }
 

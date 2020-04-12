@@ -47,7 +47,10 @@
     <Compile Include="Behaviors\MoveTowardsPlayer.cs" />
     <Compile Include="CharacterObjects\CharacterObject.cs" />
     <Compile Include="CharacterObjects\Enemy.cs" />
+    <Compile Include="CharacterObjects\GameCharacter.cs" />
+    <Compile Include="CharacterObjects\GameObject.cs" />
     <Compile Include="CharacterObjects\Map.cs" />
+    <Compile Include="DisplaySystem\Camera.cs" />
     <Compile Include="DisplaySystem\DisplayManager.cs" />
     <Compile Include="DisplaySystem\GameUI.cs" />
     <Compile Include="GameLogic.cs" />
@@ -62,43 +65,79 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Visual Data\Characters\Enemy_04.char">
+    <None Include="Visual Data\Characters\DamageUp_Elixir_Large.dead">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Enemy_03.char">
+    <None Include="Visual Data\Characters\Enemy_03.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_04.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_01.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_00.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_04.live">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Enemy_03.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Characters\Enemy_02.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Enemy_01.char">
+    <None Include="Visual Data\Characters\Enemy_01.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Enemy_00.char">
+    <None Include="Visual Data\Characters\Enemy_00.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Health_Potion_ExtaLarge.char">
+    <None Include="Visual Data\Characters\Health_Potion_ExtaLarge.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Health_Potion_Small.char">
+    <None Include="Visual Data\Characters\Health_Potion_Large.dead">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Health_Potion_Large.char">
+    <None Include="Visual Data\Characters\Health_Potion_Small.dead">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Player.char">
+    <None Include="Visual Data\Characters\Health_Potion_Small.live">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Health_Potion_Large.live">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Player.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Player.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Characters\Enemy_99.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\DamageUp_Elixir_Large.char">
+    <None Include="Visual Data\Characters\DamageUp_Elixir_Large.live">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Shield_Potion_Large.char">
+    <None Include="Visual Data\Characters\Shield_Potion_Large.dead">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\Characters\Shield_Potion_Small.char">
+    <None Include="Visual Data\Characters\Shield_Potion_Large.live">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Shield_Potion_Small.dead">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Characters\Shield_Potion_Small.live">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\Dungeon_07.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Visual Data\Maps\World.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\Maps\Dungeon_05.map">
@@ -125,13 +164,16 @@
     <None Include="Visual Data\UI\exitgame.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Visual Data\UI\gameover_win.char">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Visual Data\UI\newgame.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Visual Data\UI\pressanykey.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Visual Data\UI\gameover.char">
+    <None Include="Visual Data\UI\gameover_lose.char">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

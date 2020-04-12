@@ -9,13 +9,10 @@ namespace Text_Based_RPG.CharacterObjects
 {
     class Map : CharacterObject
     {
-        private Random random = new Random();
-        //private string[] map_01, map_02, map_03;
-
         //Constructor
         public Map(string mapName)
         {
-            GetPhysicalAndNegativeForm($@".\Visual Data\Maps\{mapName}.map");
+            LoadMap($@".\Visual Data\Maps\{mapName}.map");
             Name = mapName;
             Height = PhysicalForm.Length;
             Width = GetWidth();

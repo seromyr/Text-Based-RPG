@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG.CharacterObjects
 {
-    class Player : CharacterObject
+    class Player : GameCharacter
     {
+        //Totally private variable
+        private int _characterSteps;
+
         public Player()
         {
+
             Health = 100;
             Shield = 100;
             Damage = 5;
@@ -23,7 +27,8 @@ namespace Text_Based_RPG.CharacterObjects
             PreviousY = Y;
             Speed = 1;
 
-            GetPhysicalAndNegativeForm(@".\Visual Data\Characters\Player.char");
+            GetBattleForms(@".\Visual Data\Characters\Player");
+            SetMapForms('Θ');
 
             Name = "[Every Day Normal Bot]";
             Color = ConsoleColor.DarkYellow;
@@ -47,6 +52,8 @@ namespace Text_Based_RPG.CharacterObjects
             //--------------------------------
 
             GetCurrentBoundaryCoordinates();
+
+            _characterSteps = GameManager.Tick;
         }
 
         //For collision checking with everything on the map
@@ -94,6 +101,36 @@ namespace Text_Based_RPG.CharacterObjects
                 //Console.SetCursorPosition(boundaryRightX[i], boundaryRightY[i]);
                 //Console.Write(".");
             }
+        }
+
+        public void UpdateGameplayStatus(int steps)
+        {
+            //Well, only CurrentShield regenerates if it was allowed to
+            //And regenerates shield every number of steps (or Ticks)
+            if (GameManager.Tick == _characterSteps + steps)
+            {
+                _characterSteps = GameManager.Tick;
+                if (ShieldRegenerationAllowed)
+                {
+                    if (CurrentShield > 0)
+                    {
+                        //if ( timeStampX)
+                        CurrentShield += (int)Math.Round(ShieldRegenerationRate * Shield);
+                        if (CurrentShield > 100)
+                        {
+                            CurrentShield = 100;
+                        }
+                    }
+                }
+            }
+
+            if (CurrentHealth > Health)
+            {
+                CurrentHealth = Health;
+            }
+            //show log
+            //Console.SetCursorPosition(5, 0);
+            //Console.Write(_characterSteps);
         }
     }
 }

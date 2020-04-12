@@ -15,7 +15,7 @@ namespace Text_Based_RPG
         public static Random random = new Random();
 
         //Unused test method
-        public void CollisionCheckBetweenPlayerAndCanvasBoundaries(CharacterObject player)
+        public void CollisionCheckBetweenPlayerAndCanvasBoundaries(Player player)
         {
             //Methods
             //Constantly update every obstacle that is displayed within the gameplay canvas
@@ -97,8 +97,8 @@ namespace Text_Based_RPG
             }
         }
 
-        //Collision check between two object
-        public bool CollisionCheckTwoObjects(CharacterObject cO1, CharacterObject cO2, bool showlog, int x, int y)
+        //Collision check between player and item object
+        public bool CollisionCheckTwoObjects(Player player, Items item, bool showlog, int x, int y)
         {
             bool isCollided = false;
 
@@ -112,33 +112,33 @@ namespace Text_Based_RPG
             List<int> objBy = new List<int>();
 
             //------------- Should use a temporary variables without tampering the real variable
-            int xA = cO1.X;
-            int yA = cO1.Y;
-            int xB = cO2.X;
-            int yB = cO2.Y;
+            int xA = player.X;
+            int yA = player.Y;
+            int xB = item.X;
+            int yB = item.Y;
 
             //------------- Break down object 1
-            for (int i = 0; i < cO1.Width * cO1.Height; i++)
+            for (int i = 0; i < player.Width * player.Height; i++)
             {
                 objAx.Add(xA); xA++;
                 objAy.Add(yA);
 
-                if (xA > cO1.X + cO1.Width - 1)
+                if (xA > player.X + player.Width - 1)
                 {
-                    xA = cO1.X;
+                    xA = player.X;
                     yA++;
                 }
             }
 
             //------------- Break down object 2
-            for (int i = 0; i < cO2.Width * cO2.Height; i++)
+            for (int i = 0; i < item.Width * item.Height; i++)
             {
                 objBx.Add(xB); xB++;
                 objBy.Add(yB);
 
-                if (xB > cO2.X + cO2.Width - 1)
+                if (xB > item.X + item.Width - 1)
                 {
-                    xB = cO2.X;
+                    xB = item.X;
                     yB++;
                 }
             }
@@ -156,9 +156,9 @@ namespace Text_Based_RPG
             if (showlog)
             {
                 //Player coordinates parsed log is fixed
-                ParseCoordinates(Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT + 1, Constant.GAMEPLAY_CANVAS_LIMIT_UP, cO1, objAx, objAy);
+                ParseCoordinates(Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT + 1, Constant.GAMEPLAY_CANVAS_LIMIT_UP, player, objAx, objAy);
 
-                ParseCoordinates(x, y, cO2, objBx, objBy);
+                ParseCoordinates(x, y, item, objBx, objBy);
             }
 
             return isCollided;
@@ -183,7 +183,7 @@ namespace Text_Based_RPG
             }
         }
 
-        public void CollisionCheckInsideBounds(CharacterObject observingObject, CharacterObject observer)
+        public void CollisionCheckInsideBounds(CharacterObject observingObject, GameCharacter character)
         {
             //Coordinates list
             List<int> allX = new List<int>();
@@ -222,44 +222,105 @@ namespace Text_Based_RPG
 
             for (int i = 0; i < allY.Count; i++)
             {
-                if (observer.BoundaryTopX.Contains(allX[i]) && observer.BoundaryTopY.Contains(allY[i]) && charMapList[i] != " ")
+                if (character.BoundaryTopX.Contains(allX[i]) && character.BoundaryTopY.Contains(allY[i]) && charMapList[i] != " ")
                 {
                    //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " at the top.");
-                    observer.BlockedVertically = BlockedDirection.Up;
+                    character.BlockedVertically = BlockedDirection.Up;
                 }
             }
 
             for (int i = 0; i < allY.Count; i++)
             {
-                if (observer.BoundaryBotX.Contains(allX[i]) && observer.BoundaryBotY.Contains(allY[i]) && charMapList[i] != " ")
+                if (character.BoundaryBotX.Contains(allX[i]) && character.BoundaryBotY.Contains(allY[i]) && charMapList[i] != " ")
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " below.");
-                    observer.BlockedVertically = BlockedDirection.Down;
+                    character.BlockedVertically = BlockedDirection.Down;
                 }
             }
 
             for (int i = 0; i < allX.Count; i++)
             {
-                if (observer.BoundaryLeftX.Contains(allX[i]) && observer.BoundaryLeftY.Contains(allY[i]) && charMapList[i] != " ")
+                if (character.BoundaryLeftX.Contains(allX[i]) && character.BoundaryLeftY.Contains(allY[i]) && charMapList[i] != " ")
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " on the left.");
-                    observer.BlockedHorizontally = BlockedDirection.Left;
-                    observingObject.AttackPermission = true;
+                    character.BlockedHorizontally = BlockedDirection.Left;
+                    //observingObject.AttackPermission = true;
                 }
             }
 
             for (int i = 0; i < allX.Count; i++)
             {
-                if (observer.BoundaryRightX.Contains(allX[i]) && observer.BoundaryRightY.Contains(allY[i]) && charMapList[i] != " ")
+                if (character.BoundaryRightX.Contains(allX[i]) && character.BoundaryRightY.Contains(allY[i]) && charMapList[i] != " ")
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ observer.Name} encountered " + observingObject.Name + " on the right.");
-                    observer.BlockedHorizontally = BlockedDirection.Right;
-                    observingObject.AttackPermission = true;
+                    character.BlockedHorizontally = BlockedDirection.Right;
+                    //observingObject.AttackPermission = true;
                 }
             }
         }
 
-        public void CollisionCheckOutsideBounds(CharacterObject observingObject, Player player)
+        public void CollisionCheckInsideCameraViewport(Camera map, GameCharacter character)
+        {
+            int x = (int)Math.Round(Constant.VIEWPORT_WIDTH / 2.0, 0);
+            int y = (int)Math.Round(Constant.VIEWPORT_HEIGHT / 2.0, 0);
+
+            if (map.viewPort[y - 1,x] != ' ')
+            {
+                character.BlockedVertically = BlockedDirection.Up;
+            }
+
+            if (map.viewPort[y + 1,x] != ' ')
+            {
+                character.BlockedVertically = BlockedDirection.Down;
+            }
+
+            if (map.viewPort[y,x - 1] != ' ')
+            {
+                character.BlockedHorizontally = BlockedDirection.Left;
+            }
+
+            if (map.viewPort[y,x + 1] != ' ')
+            {
+                character.BlockedHorizontally = BlockedDirection.Right;
+            }
+        }
+
+        public bool BattleCheckOnWorldMap(Camera map, GameCharacter character, GameCharacter enemy)
+        {
+            bool fight = false;
+            int x = (int)Math.Round(Constant.VIEWPORT_WIDTH  / 2.0, 0);
+            int y = (int)Math.Round(Constant.VIEWPORT_HEIGHT / 2.0, 0);
+
+            if (map.viewPort[y - 1, x] == enemy.MapForm ||
+                map.viewPort[y + 1, x] == enemy.MapForm ||
+                map.viewPort[y, x - 1] == enemy.MapForm ||
+                map.viewPort[y, x + 1] == enemy.MapForm )
+            {
+                fight = true;
+            }
+
+            return fight;
+        }
+
+        public bool ObjectCollisionCheckOnWorldMap(Camera map, GameCharacter character, char objectChar)
+        {
+            bool encounter = false;
+
+            int x = (int)Math.Round(Constant.VIEWPORT_WIDTH  / 2.0, 0);
+            int y = (int)Math.Round(Constant.VIEWPORT_HEIGHT / 2.0, 0);
+
+            if (map.viewPort[y - 1, x] == objectChar ||
+                map.viewPort[y + 1, x] == objectChar ||
+                map.viewPort[y, x - 1] == objectChar ||
+                map.viewPort[y, x + 1] == objectChar )
+            {
+                encounter = true;
+            }
+
+            return encounter;
+        }
+
+        public void CollisionCheckOutsideBounds(Enemy enemy, Player player)
         {
             //Methods No.2
             //Constantly update every obstacle that is displayed within the gameplay canvas
@@ -269,24 +330,24 @@ namespace Text_Based_RPG
             List<int> allX = new List<int>();
             List<int> allY = new List<int>();
 
-            int xB = observingObject.X;
-            int yB = observingObject.Y;
+            int xB = enemy.X;
+            int yB = enemy.Y;
 
             //This is gameplay canvas top and bot border coordinates
             //------------- Break down observing object
-            for (int i = 0; i < observingObject.Width * observingObject.Height; i++)
+            for (int i = 0; i < enemy.Width * enemy.Height; i++)
             {
                 allX.Add(xB); xB++;
                 allY.Add(yB);
 
-                if (xB > observingObject.X + observingObject.Width - 1)
+                if (xB > enemy.X + enemy.Width - 1)
                 {
-                    xB = observingObject.X;
+                    xB = enemy.X;
                     yB++;
                 }
             }
 
-            observingObject.AttackPermission = false;
+            enemy.AttackPermission = false;
 
             //Check for collision
             for (int i = 0; i < allY.Count; i++)
@@ -295,7 +356,7 @@ namespace Text_Based_RPG
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " at the top.");
                     player.BlockedVertically = BlockedDirection.Up;
-                    observingObject.AttackPermission = true;
+                    enemy.AttackPermission = true;
                 }
             }
 
@@ -305,7 +366,7 @@ namespace Text_Based_RPG
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " below.");
                     player.BlockedVertically = BlockedDirection.Down;
-                    observingObject.AttackPermission = true;
+                    enemy.AttackPermission = true;
                 }
             }
 
@@ -315,7 +376,7 @@ namespace Text_Based_RPG
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " on the left.");
                     player.BlockedHorizontally = BlockedDirection.Left;
-                    observingObject.AttackPermission = true;
+                    enemy.AttackPermission = true;
                 }
             }
 
@@ -325,7 +386,7 @@ namespace Text_Based_RPG
                 {
                     //DisplayManager.WriteTextAt(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN, $"{ player.Name} encountered " + observingObject.Name + " on the right.");
                     player.BlockedHorizontally = BlockedDirection.Right;
-                    observingObject.AttackPermission = true;
+                    enemy.AttackPermission = true;
                 }
             }
         }

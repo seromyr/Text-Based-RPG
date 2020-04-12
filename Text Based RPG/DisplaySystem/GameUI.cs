@@ -13,8 +13,8 @@ namespace Text_Based_RPG.DisplaySystem
     {
         private string[] pressAnyKey         , mainMenuHeader,
                          pressAnykey_Negative, mainMenuHeader_Negative,
-                         newGame             , loadGame               , quitGame         , credits         , gameOver         ,
-                         newGame_Negative    , loadGame_Negative      , quitGame_Negative, credits_Negative, gameOver_Negative;
+                         newGame             , loadGame               , quitGame         , credits         , gameOverWin         , gameOverLose         ,
+                         newGame_Negative    , loadGame_Negative      , quitGame_Negative, credits_Negative, gameOverWin_Negative, gameOverLose_Negative;
 
         private string newGame_Normal, loadGame_Normal, quitGame_Normal, credits_Normal;
 
@@ -52,9 +52,13 @@ namespace Text_Based_RPG.DisplaySystem
             GetPositiveAndNegativeVisual(credits, credits_Negative);
             credits_Normal = "CREDITS";
 
-            gameOver = File.ReadAllLines(@".\Visual Data\UI\gameover.char", Encoding.ASCII);
-            gameOver_Negative = new string[gameOver.Length];
-            GetPositiveAndNegativeVisual(gameOver, gameOver_Negative);
+            gameOverWin = File.ReadAllLines(@".\Visual Data\UI\gameover_win.char", Encoding.ASCII);
+            gameOverWin_Negative = new string[gameOverWin.Length];
+            GetPositiveAndNegativeVisual(gameOverWin, gameOverWin_Negative);
+
+            gameOverLose = File.ReadAllLines(@".\Visual Data\UI\gameover_lose.char", Encoding.ASCII);
+            gameOverLose_Negative = new string[gameOverLose.Length];
+            GetPositiveAndNegativeVisual(gameOverLose, gameOverLose_Negative);
 
             //Menu default function
             inputValue = 0;
@@ -91,45 +95,46 @@ namespace Text_Based_RPG.DisplaySystem
 
         public void DrawGameplayCanvas()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             DrawRectangle(Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_UP, Constant.GAMEPLAY_CANVAS_LIMIT_RIGHT - Constant.GAMEPLAY_CANVAS_LIMIT_LEFT, Constant.GAMEPLAY_CANVAS_LIMIT_DOWN - Constant.GAMEPLAY_CANVAS_LIMIT_UP);
         }
 
-        public void ShowStatsHUD(int x, int y, CharacterObject characterObject)
+        public void ShowStatsHUD(int x, int y, GameCharacter character)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(x, y);
-            Console.WriteLine(" Name    {0}", characterObject.Name);
+            Console.WriteLine(" Name    {0}", character.Name);
             Console.SetCursorPosition(x, y + 1);
-            Console.WriteLine(" Health  [                    ] {0} ", characterObject.CurrentHealth);
+            Console.WriteLine(" Health  [                    ] {0} ", character.CurrentHealth);
 
             Console.SetCursorPosition(x + 10, y + 1);
             for (int i = 0; i < 20; i++) Console.Write("-");
 
             //Avoid divided by zero
-            if (characterObject.Health != 0)
+            if (character.Health != 0)
             {
                 Console.SetCursorPosition(x + 10, y + 1);
-                for (int j = 0; j < (characterObject.CurrentHealth * 20 / characterObject.Health); j++) Console.Write("▒");
+                for (int j = 0; j < (character.CurrentHealth * 20 / character.Health); j++) Console.Write("▒");
             }
 
             Console.SetCursorPosition(x, y + 2);
-            Console.WriteLine(" Shield  [                    ] {0} ", characterObject.CurrentShield);
+            Console.WriteLine(" Shield  [                    ] {0} ", character.CurrentShield);
 
             Console.SetCursorPosition(x + 10, y + 2);
             for (int i = 0; i < 20; i++) Console.Write("-");
 
             //Avoid divided by zero
-            if (characterObject.Shield != 0)
+            if (character.Shield != 0)
             {
                 Console.SetCursorPosition(x + 10, y + 2);
-                for (int j = 0; j < (characterObject.CurrentShield * 20 / characterObject.Shield); j++) Console.Write("■");
+                for (int j = 0; j < (character.CurrentShield * 20 / character.Shield); j++) Console.Write("■");
             }
 
             Console.SetCursorPosition(x, y + 3);
-            Console.WriteLine(" Damage   {0}", characterObject.Damage);
+            Console.WriteLine(" Damage   {0}", character.Damage);
 
             Console.SetCursorPosition(x, y + 4);
-            Console.WriteLine(" Live     {0}", characterObject.CurrentLive);
+            Console.WriteLine(" Live     {0}", character.CurrentLive);
         }
 
         public void DrawSplashScreen()
@@ -172,34 +177,70 @@ namespace Text_Based_RPG.DisplaySystem
         {
             while (!Console.KeyAvailable)
             {
-                for (int i = 0; i < gameOver.Length; i++)
+                for (int i = 0; i < gameOverWin.Length; i++)
                 {
                     Console.SetCursorPosition(25, i + 10);
-                    Console.Write(gameOver[i]);
+                    Console.Write(gameOverWin[i]);
                 }
                 Thread.Sleep(500);
 
-                for (int j = 0; j < gameOver.Length; j++)
+                for (int j = 0; j < gameOverWin.Length; j++)
                 {
                     Console.SetCursorPosition(25, j + 10);
-                    Console.Write(gameOver_Negative[j]);
+                    Console.Write(gameOverWin_Negative[j]);
                 }
                 Thread.Sleep(500);
             }
 
             Console.ReadKey(true);
 
-            for (int i = 0; i < gameOver.Length; i++)
+            for (int i = 0; i < gameOverWin.Length; i++)
             {
                 Console.SetCursorPosition(25, i + 10);
-                Console.Write(gameOver[i]);
+                Console.Write(gameOverWin[i]);
             }
             Thread.Sleep(650);
 
-            for (int j = 0; j < gameOver.Length; j++)
+            for (int j = 0; j < gameOverWin.Length; j++)
             {
                 Console.SetCursorPosition(25, j + 10);
-                Console.Write(gameOver_Negative[j]);
+                Console.Write(gameOverWin_Negative[j]);
+                Thread.Sleep(100);
+            }
+        }
+
+        public void DrawDefeatedScreen()
+        {
+            while (!Console.KeyAvailable)
+            {
+                for (int i = 0; i < gameOverLose.Length; i++)
+                {
+                    Console.SetCursorPosition(25, i + 10);
+                    Console.Write(gameOverLose[i]);
+                }
+                Thread.Sleep(500);
+
+                for (int j = 0; j < gameOverLose.Length; j++)
+                {
+                    Console.SetCursorPosition(25, j + 10);
+                    Console.Write(gameOverLose_Negative[j]);
+                }
+                Thread.Sleep(500);
+            }
+
+            Console.ReadKey(true);
+
+            for (int i = 0; i < gameOverLose.Length; i++)
+            {
+                Console.SetCursorPosition(25, i + 10);
+                Console.Write(gameOverLose[i]);
+            }
+            Thread.Sleep(650);
+
+            for (int j = 0; j < gameOverLose.Length; j++)
+            {
+                Console.SetCursorPosition(25, j + 10);
+                Console.Write(gameOverLose_Negative[j]);
                 Thread.Sleep(100);
             }
         }
@@ -225,7 +266,7 @@ namespace Text_Based_RPG.DisplaySystem
             }
             //---------------------------------------------- draw middle text
             Console.SetCursorPosition(20, mainMenuHeader.Length + 2);
-            Console.Write("A roguelike textbased RPG by BUU NGUYEN - version 0.2 - Built on March 28th, 2020");
+            Console.Write("A roguelike textbased RPG by BUU NGUYEN - version 0.3 - Built on April 9th, 2020");
         }
 
         public void DrawMainMenu()
@@ -343,23 +384,23 @@ namespace Text_Based_RPG.DisplaySystem
                 }
                 else if (inputValue == -1 && currentSelection == (int)MainMenu.Continue)
                 {
-                    DrawConfirmationBox(mainMenuPosition[1, 0] + loadGame[0].Length, mainMenuPosition[1, 1], 20, loadGame.GetLength(0) + 1, "Work in progress");
+                    DrawConfirmationBox(mainMenuPosition[1, 0] + loadGame[0].Length, mainMenuPosition[1, 1], 20, loadGame.GetLength(0) + 1, "Work in progress", 3);
                     inputValue = 1;
                 }
                 else if (inputValue == -1 && currentSelection == (int)MainMenu.Quit)
                 {
-                    DrawConfirmationBox(mainMenuPosition[2, 0] + quitGame[0].Length, mainMenuPosition[2, 1], 20, quitGame.GetLength(0) + 1, "Work in progress");
+                    DrawConfirmationBox(mainMenuPosition[2, 0] + quitGame[0].Length, mainMenuPosition[2, 1], 20, quitGame.GetLength(0) + 1, "Work in progress", 3);
                     inputValue = 2;
                 }
                 else if (inputValue == -1 && currentSelection == (int)MainMenu.Credits)
                 {
-                    DrawConfirmationBox(mainMenuPosition[3, 0] + credits[0].Length, mainMenuPosition[3, 1], 20, credits.GetLength(0) + 1, "Work in progress");
+                    DrawConfirmationBox(mainMenuPosition[3, 0] + credits[0].Length, mainMenuPosition[3, 1], 20, credits.GetLength(0) + 1, "Work in progress", 3);
                     inputValue = 3;
                 }
             }
         }
 
-        public void DrawConfirmationBox(int x, int y, int l, int h, string message)
+        public void DrawConfirmationBox(int x, int y, int l, int h, string message, int line2 = 3)
         {            
             for (int i = 0; i < l; i++)
             {
@@ -373,8 +414,8 @@ namespace Text_Based_RPG.DisplaySystem
             DrawAnimatedTextboxIn(x, y, l, h);
             Console.ForegroundColor = ConsoleColor.White;
             WriteTextAt(x + 2, y + 1, message);
-            WriteTextAt(x + 3, y + 2, "Press any key");
-            Console.ReadKey(true);
+            WriteTextAt(x + line2, y + 2, "Hit Enter to continue");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter);
             Console.SetCursorPosition(x + 2, y + 1);
             foreach (char c in message)
             {
