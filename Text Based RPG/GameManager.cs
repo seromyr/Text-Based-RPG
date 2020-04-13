@@ -290,8 +290,9 @@ namespace Text_Based_RPG
                                        28,
                                        4,
                                        "Find and defeat Big Boss", //ok
-                                       3); 
+                                       3);
             camera.Update();
+            //camera.TakeSnapshot();
 
             while (!gameLose || !gameWin)
             {
@@ -309,6 +310,7 @@ namespace Text_Based_RPG
                 PlayerController2();
 
                 //Update camera
+                //camera.TakeSnapshot();
                 camera.Update();
 
                 //Non-enemy collision check on world map
@@ -340,7 +342,7 @@ namespace Text_Based_RPG
                     player.Health = 100;
                     player.CurrentHealth = 100;
                     player.CurrentShield = 100;
-                    player.Damage += 5;
+                    player.Damage += 10;
                 }
 
                 //Battle check
@@ -755,6 +757,7 @@ namespace Text_Based_RPG
                     if (player.BlockedHorizontally == BlockedDirection.Left) break;
                     else
                     {
+                        
                         camera.ViewportDefaultX -= player.Speed;           // <= Move the map with speed
                         player.BlockedHorizontally = BlockedDirection.None;// <= Assume that there is obstacle blocking player movement horizontally
                         player.BlockedVertically = BlockedDirection.None;  // <= Assume that there is obstacle blocking player movement vertically
@@ -764,6 +767,7 @@ namespace Text_Based_RPG
                     if (player.BlockedHorizontally == BlockedDirection.Right) break;
                     else
                     {
+                        
                         camera.ViewportDefaultX += player.Speed;
                         player.BlockedHorizontally = BlockedDirection.None;
                         player.BlockedVertically = BlockedDirection.None;
@@ -773,6 +777,7 @@ namespace Text_Based_RPG
                     if (player.BlockedVertically == BlockedDirection.Up) break;
                     else
                     {
+                        
                         camera.ViewportDefaultY -= player.Speed;
                         player.BlockedHorizontally = BlockedDirection.None;
                         player.BlockedVertically = BlockedDirection.None;
@@ -782,6 +787,7 @@ namespace Text_Based_RPG
                     if (player.BlockedVertically == BlockedDirection.Down) break;
                     else
                     {
+                        
                         camera.ViewportDefaultY += player.Speed;
                         player.BlockedHorizontally = BlockedDirection.None;
                         player.BlockedVertically = BlockedDirection.None;
@@ -797,6 +803,8 @@ namespace Text_Based_RPG
             enemyList[EnemyCount].Name = name;
             enemyList[EnemyCount].X = x;
             enemyList[EnemyCount].Y = y;
+            enemyList[EnemyCount].PreviousX = x;
+            enemyList[EnemyCount].PreviousY = y;
             EnemyCount++;
         }
 

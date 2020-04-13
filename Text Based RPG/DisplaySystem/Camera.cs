@@ -9,20 +9,20 @@ namespace Text_Based_RPG.DisplaySystem
 {
     class Camera : DisplayManager
     {
-        public char[,] viewPort, mapBuffer;
+        public char[,] viewPort, mapBuffer, viewPortNegative;
         private string viewportNegative;
         private Map currentMap;
         private int playerStartingLocationX, playerStartingLocationY, viewportDefaultX, viewportDefaultY;
-        
+        public int prevX, prevY;
+
         //extra object list to put on the map buffer
         private List<char> extraObject;
         private List<int>  objectX, objectY;
 
-        
-
         public Camera(string mapName, ConsoleColor mapColor)
         {
             viewPort = new char[Constant.VIEWPORT_HEIGHT, Constant.VIEWPORT_WIDTH]; //[12,115]
+            viewPortNegative = new char[Constant.VIEWPORT_HEIGHT, Constant.VIEWPORT_WIDTH]; //[12,115]
             viewportNegative = "                                                                                                                   ";
 
             extraObject = new List<char>();
@@ -45,6 +45,8 @@ namespace Text_Based_RPG.DisplaySystem
 
             viewportDefaultX = (int)(playerStartingLocationX - Math.Round(Constant.VIEWPORT_WIDTH  / 2.0, 0));
             viewportDefaultY = (int)(playerStartingLocationY - Math.Round(Constant.VIEWPORT_HEIGHT / 2.0, 0));
+            prevX = viewportDefaultX;
+            prevY = viewportDefaultY;
 
             LoadMapBufferToViewPort();
 
@@ -53,7 +55,6 @@ namespace Text_Based_RPG.DisplaySystem
 
         public int ViewportDefaultX { get { return viewportDefaultX; } set { viewportDefaultX = value; } }
         public int ViewportDefaultY { get { return viewportDefaultY; } set { viewportDefaultY = value; } }
-
         private void LoadMapToBuffer()
         {
             //Make a loop for all elements of the 1st dimension of the mapBuffer
@@ -75,18 +76,6 @@ namespace Text_Based_RPG.DisplaySystem
                         mapBuffer[i, j] = ' ';
                     }
                 }
-            }
-        }
-
-        private void DrawMapBuffer()
-        {
-            for (int j = 0; j < mapBuffer.GetLength(0); j++)
-            {
-                for (int i = 0; i < mapBuffer.GetLength(1); i++)
-                {
-                    Console.Write(mapBuffer[j, i]);
-                }
-                Console.WriteLine();
             }
         }
 
@@ -113,8 +102,6 @@ namespace Text_Based_RPG.DisplaySystem
 
         private void UpdateViewport()
         {
-            //Console.ForegroundColor = currentMap.Color;
-
             for (int i = 0; i < viewPort.GetLength(0); i++)
             {
                 Console.SetCursorPosition(currentMap.X, currentMap.Y + i);
@@ -123,7 +110,7 @@ namespace Text_Based_RPG.DisplaySystem
                 {
                     if (viewPort[i, j] != ' ')
                     {
-                        if (viewPort[i,j] == '∩')
+                        if (viewPort[i, j] == '∩')
                         {
                             Console.ForegroundColor = ConsoleColor.Cyan;
                         }
@@ -137,7 +124,7 @@ namespace Text_Based_RPG.DisplaySystem
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
-                        
+
                         else if (viewPort[i, j] == 'Σ')
                         {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -161,12 +148,28 @@ namespace Text_Based_RPG.DisplaySystem
             }
         }
 
+        public void ClearViewPort()
+        {
+            Console.SetCursorPosition(currentMap.X, currentMap.Y);
+            for (int i = 0; i < viewPort.GetLength(0); i++)
+            {
+                for (int j = 0; j < viewPort.GetLength(1); j++)
+                {
+                    if (viewPortNegative[i, j] == '+')
+                    {
+                        Console.SetCursorPosition(currentMap.X + j, currentMap.Y + i);
+                        Console.Write(' ');
+                    }
+                }
+            }
+        }
+
         public void RenderMapToCamera()
         {
             //Render map through viewport, with X is the starting location
             //Go to console app window designated position to draw viewport
             Console.SetCursorPosition(currentMap.X, currentMap.Y);
-
+            
             //Draw the portion of the map with X at the center
             UpdateViewport();
         }
@@ -175,7 +178,9 @@ namespace Text_Based_RPG.DisplaySystem
         {
             LoadMapBufferToViewPort();
             Console.SetCursorPosition(currentMap.X, currentMap.Y);
+            //ClearViewPort();
             UpdateViewport();
+            //TakeSnapshot();
         }
 
         public void AddObject(char mapForm, int x, int y)
@@ -201,6 +206,29 @@ namespace Text_Based_RPG.DisplaySystem
         {
             mapBuffer[y, x] = ' ';
             Update();
+        }
+
+        public void TakeSnapshot()
+        {
+            Array.Copy(viewPort, viewPortNegative, viewPort.Length);
+
+            for (int i = 0; i < viewPortNegative.GetLength(0); i++)
+            {
+                for (int j = 0; j < viewPortNegative.GetLength(1); j++)
+                {
+                    StringBuilder sb = new StringBuilder(viewPortNegative[i, j]);
+                    if (viewPort[i, j] != ' ')
+                    {
+                        sb.Append('+');
+                    }
+
+                    if (viewPort[i, j] == ' ')
+                    {
+                        sb.Append(' ');
+                    }
+                    viewPortNegative[i, j] = Convert.ToChar(sb.ToString());
+                }
+            }
         }
     }
 }

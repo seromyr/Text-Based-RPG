@@ -129,8 +129,8 @@ namespace Text_Based_RPG.CharacterObjects
             //Combat data
             Health = 200;
             CurrentHealth = 200;
-            Shield = 100;
-            CurrentShield = 100;
+            Shield = 50;
+            CurrentShield = 50;
             ShieldRegenerationAllowed = false;
             Damage = 50;
             Speed = 1;

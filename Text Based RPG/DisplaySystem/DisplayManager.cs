@@ -23,11 +23,10 @@ namespace Text_Based_RPG.DisplaySystem
         {
             Console.ForegroundColor = color;
             
-            foreach (string line in drawObject)
+            for (int i = 0; i < drawObject.Length; i++)
             {
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine(line);
-                y++;
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(drawObject[i]);
             }
         }
 
@@ -95,6 +94,7 @@ namespace Text_Based_RPG.DisplaySystem
         //Draw an animated textbox with expanding effect
         protected void DrawAnimatedTextboxIn(int x = 37, int y = 17, int l = 28, int h = 3)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             //draw the smallest rectangle  at the center
             DrawRectangle(x + (l * 1 / 2) - 1, y, 2, h);
             Thread.Sleep(100);
@@ -148,12 +148,34 @@ namespace Text_Based_RPG.DisplaySystem
             }
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < l; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    Console.SetCursorPosition(x + i, y + j);
+                    Console.Write(' ');
+                }
+            }
+
             DrawRectangle(x, y, l, h);
+
         }
 
         //Draw an animated textbox with shrinking effect
         protected void DrawAnimatedTextboxOut(int x = 37, int y = 17, int l = 28, int h = 3)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < l; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    Console.SetCursorPosition(x + i, y + j);
+                    Console.Write(' ');
+                }
+            }
+
             //Clear the largest rectangle
             ClearRectangle(x, y, l, h);
 

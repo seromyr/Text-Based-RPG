@@ -409,23 +409,27 @@ namespace Text_Based_RPG.DisplaySystem
                     Console.SetCursorPosition(x + i, y + j);
                     Console.Write(' ');
                 }
-                
             }
+
             DrawAnimatedTextboxIn(x, y, l, h);
+
             Console.ForegroundColor = ConsoleColor.White;
             WriteTextAt(x + 2, y + 1, message);
             WriteTextAt(x + line2, y + 2, "Hit Enter to continue");
+
             while (Console.ReadKey(true).Key != ConsoleKey.Enter);
+
             Console.SetCursorPosition(x + 2, y + 1);
             foreach (char c in message)
             {
                 Console.Write(' ');
             }
-            Console.SetCursorPosition(x + 3, y + 2);
+            Console.SetCursorPosition(x + line2, y + 2);
             foreach (char c in message)
             {
                 Console.Write(' ');
             }
+
             DrawAnimatedTextboxOut(x, y, l, h);
         }
     }
