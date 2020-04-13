@@ -520,7 +520,7 @@ namespace Text_Based_RPG
 
                     //battleFinish = true;
                     gameUI.DrawTransitionEffect_Dissolve('█', ' ');
-                    ClearPreviousLevelData();
+                    ClearAllPowerUpItems();
                     gameLose = true;
                     break;
                 }
@@ -529,7 +529,7 @@ namespace Text_Based_RPG
                 {
                     battleCount++;
                     gameUI.DrawTransitionEffect_Dissolve('█', ' ');
-                    ClearPreviousLevelData();
+                    ClearAllPowerUpItems();
                     break;
                 }
 
@@ -856,7 +856,7 @@ namespace Text_Based_RPG
             rune[index].Y = y;
         }
 
-        private void ClearPreviousLevelData()
+        private void ClearAllPowerUpItems()
         {
             //clear the list
             pickups.Clear();
@@ -878,16 +878,29 @@ namespace Text_Based_RPG
                     elixir[i].Y = 0;
                 }
             }
+
+            for (int i = 0; i < rune.Length; i++)
+            {
+                if (rune[i] != null)
+                {
+                    rune[i].X = 0;
+                    rune[i].Y = 0;
+                }
+            }
         }
 
         private void ResetGameData()
         {
-            enemyList.Clear();
-            EnemyCount = 0;
-            battleCount = 0;
+            //Game loop function reset
             gameLose = false;
             gameWin = false;
+            battleCount = 0;
+            
+            //Clear enemy list
+            enemyList.Clear();
+            EnemyCount = 0;
 
+            //Reset player stats
             player.Health = 100;
             player.CurrentHealth = 30;
             player.Shield = 100;
@@ -895,6 +908,13 @@ namespace Text_Based_RPG
             player.Damage = 5;
             player.CurrentLive = player.Live = 3;
             player.ShieldRegenerationAllowed = true;
+
+            //Release player controls
+            player.BlockedHorizontally = BlockedDirection.None;
+            player.BlockedVertically = BlockedDirection.None;
+
+            //Clear pickups
+            ClearAllPowerUpItems();
         }
     }
 }

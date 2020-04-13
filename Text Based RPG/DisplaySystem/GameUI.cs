@@ -266,7 +266,7 @@ namespace Text_Based_RPG.DisplaySystem
             }
             //---------------------------------------------- draw middle text
             Console.SetCursorPosition(20, mainMenuHeader.Length + 2);
-            Console.Write("A roguelike textbased RPG by BUU NGUYEN - version 0.3 - Built on April 9th, 2020");
+            Console.Write("A roguelike textbased RPG by BUU NGUYEN - version 0.5b - Built on April 12th, 2020");
         }
 
         public void DrawMainMenu()
